@@ -309,40 +309,25 @@ public class SearchRepetition {
         String[] oldBuffer = old.split(",");
         String[] xinBuffer = xin.split(",");
 
-        String[] oldBuffer1 = new String[500];
+        List<String> oldlist = new ArrayList<String>();
 
         int count = 0;
 
-        for(int i = 0; i < oldBuffer.length; i++){
-            int index = oldBuffer[i].indexOf(":");
+        for(String s : oldBuffer){
+            int index = s.indexOf(":");
             if(index != -1){
-                oldBuffer[i] = oldBuffer[i].substring(index + 1);
+                s = s.substring(index + 1);
+            }
+            if(!oldlist.contains(s)){
+                oldlist.add(s);
             }
         }
-
-        oldBuffer1[0] = oldBuffer[0];
-        int oldnum = 1;
-        for(int i = 1; i < oldBuffer.length; i++){
-            for(int j = 0; j < oldnum; j++){
-                if(oldBuffer1[j].compareToIgnoreCase(oldBuffer[i]) == 0){
-                    break;
-                }
-
-                if(j == oldnum-1){
-                    oldBuffer1[oldnum] = oldBuffer[i];
-                    //System.out.println(oldBuffer1[oldnum]);
-                    oldnum++;
-                    break;
-                }
-            }
-        }
-        //System.out.println(oldnum);
 
         List<String> list = new ArrayList<String>();
-        for(int i = 0; i < oldnum; i++){
+        for(String s1 : oldlist){
             for(String s2 : xinBuffer){
-                if(oldBuffer1[i].compareToIgnoreCase(s2) == 0){
-                    list.add(oldBuffer1[i]);
+                if(s1.compareToIgnoreCase(s2) == 0){
+                    list.add(s1);
                     count++;
                 }
             }

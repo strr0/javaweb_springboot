@@ -1,5 +1,7 @@
 package demo;
 
+import java.io.ByteArrayInputStream;
+
 /**
  * 这是一个类说明
  *
@@ -10,8 +12,10 @@ package demo;
 public class HelloWorld {
 
     public static void main(String[] args){
-        System.out.println("hello world");
-        System.out.println("hello lushaocong");
+        String str = "aaa,bbb";
+        String[] buffer = str.split(",");
+        System.out.println(buffer.length);
+
 
     }
 }
