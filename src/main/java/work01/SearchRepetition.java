@@ -312,16 +312,27 @@ public class SearchRepetition {
 
 
 
+        Set<String> l1 =new HashSet<String>();
+        Set<String> l2 =new HashSet<String>();
+        Set<String> l3 =new HashSet<String>();
+
 
         String[] s1= old.toLowerCase().split(",");
         String[] s2= xin.toLowerCase().split(",");
 
+        for(String s:s1){
+            String qq[] =s.split(":");
+            if(qq.length==1){
+                l1.add(qq[0]);
+            }else{
+                l1.add(qq[1]);
+            }
 
+        }
 
-        Set<String> l1 =new HashSet<>(Arrays.asList(s1));
-        Set<String> l2 =new HashSet<String>(Arrays.asList(s2));
-        Set<String> l3 =new HashSet<String>();
-
+        for(String s:s2){
+            l2.add(s);
+        }
 
         for (String ss:l2){
             if(l1.contains(ss)){
@@ -330,6 +341,8 @@ public class SearchRepetition {
             }
         }
         System.out.println(l3.size());
+
+
 
 
 
