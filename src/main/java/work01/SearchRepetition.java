@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -309,6 +310,26 @@ public class SearchRepetition {
 
 
 
+
+
+
+        String[] s1= old.toLowerCase().split(",");
+        String[] s2= xin.toLowerCase().split(",");
+
+
+
+        Set<String> l1 =new HashSet<>(Arrays.asList(s1));
+        Set<String> l2 =new HashSet<String>(Arrays.asList(s2));
+        Set<String> l3 =new HashSet<String>();
+
+
+        for (String ss:l2){
+            if(l1.contains(ss)){
+                l3.add(ss);
+                System.out.println(ss);
+            }
+        }
+        System.out.println(l3.size());
 
 
 
