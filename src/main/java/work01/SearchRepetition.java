@@ -3,7 +3,7 @@ package work01;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import java.io.*;
 import java.util.*;
 
 /**
@@ -305,14 +305,13 @@ public class SearchRepetition {
                 ",ycctemplate" +
                 ",yccvins" +
                 ",zkdoctor";
+/*
 
-        String[] oldBuffer = old.split(",");
-        String[] xinBuffer = xin.split(",");
+        String[] oldBuffer = old.toLowerCase().split(",");
+        String[] xinBuffer = xin.toLowerCase().split(",");
 
+        //对old进行去":"以及去除重复
         List<String> oldlist = new ArrayList<String>();
-
-        int count = 0;
-
         for(String s : oldBuffer){
             int index = s.indexOf(":");
             if(index != -1){
@@ -323,19 +322,68 @@ public class SearchRepetition {
             }
         }
 
+        //比较old与xin中的相同项
         List<String> list = new ArrayList<String>();
         for(String s1 : oldlist){
             for(String s2 : xinBuffer){
-                if(s1.compareToIgnoreCase(s2) == 0){
+                if(s1.compareTo(s2) == 0){
                     list.add(s1);
-                    count++;
                 }
             }
         }
+        //排序
         Collections.sort(list);
         for(String s : list){
             System.out.println(s);
         }
-        System.out.println(count);
+        System.out.println(list.size());
+
+*/
+
+        Set<String> l1 = new HashSet<String>();
+        Set<String> l2 = new HashSet<String>();
+        Set<String> l3 = new HashSet<String>();
+
+        String[] s1 = old.toLowerCase().split(",");
+        String[] s2 = xin.toLowerCase().split(",");
+
+        for(String s : s1){
+            String[] qq = s.split(":");
+            if(qq.length == 1)
+                l1.add(qq[0]);
+            else
+                l1.add(qq[1]);
+        }
+        for(String s : s2){
+            l2.add(s);
+        }
+
+        for(String ss : l2){
+            if(l1.contains(ss)){
+                l3.add(ss);
+                System.out.println(ss);
+            }
+        }
+        System.out.println(l3.size());
+
+
+        //写入文件a.txt
+        try{
+            File file = new File("F:\\Users\\my\\file\\a.txt");
+            FileOutputStream out = new FileOutputStream(file);
+            for(String s : l3){
+                out.write(s.getBytes());
+                out.write("\r\n".getBytes());
+            }
+            out.close();
+            System.out.println("write successfully");
+        }
+        catch (FileNotFoundException f){
+            System.out.println("file is not found.");
+        }
+        catch (IOException i){
+            System.out.println("catch IOException.");
+        }
+
     }
 }
