@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class readFromFile {
+public class x_readFromFile {
     public static void main(String[] args){
         try{
             //从a.txt中读取内容

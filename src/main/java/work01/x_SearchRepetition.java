@@ -13,11 +13,11 @@ import java.util.*;
  * @date 2019/7/19 下午2:17
  * @since 1.0
  */
-public class SearchRepetition {
+public class x_SearchRepetition {
 
 
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SearchRepetition.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(x_SearchRepetition.class);
 
 
     @Test
