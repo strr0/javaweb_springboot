@@ -1,32 +1,34 @@
 package demo;
 
-import org.junit.Assert;
-import org.junit.Test;
+import java.lang.annotation.*;
+import java.util.Arrays;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-@Target(ElementType.FIELD)
+@Inherited
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@interface IntegerValue{
-    int value() default 0;
-    String name() default "";
-}
+@interface annotationA{}
+
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@interface annotationB{}
+
+@annotationA
+class A{}
+class B extends A{}
+@annotationB
+class C{}
+class D extends C{}
 
 public class annotationDemo {
-    @IntegerValue(value = 20, name = "张三")
-    public String name;
-    public int value;
 
     public static void main(String[] args) {
-        annotationDemo a = new annotationDemo();
-        int num = a.value;
-        System.out.println("num = " + num);
-        System.out.println();
+        A instanceA = new B();
+        System.out.println("已使用的@Inherited注解:"+ Arrays.toString(instanceA.getClass().getAnnotations()));
+        C instanceC = new D();
+        System.out.println("没有使用的@Inherited注解:"+Arrays.toString(instanceC.getClass().getAnnotations()));
     }
-    @Test public void test(){
-        Assert.assertEquals(value, 20);
-    }
+
+
+
+
 }
