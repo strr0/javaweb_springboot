@@ -52,7 +52,6 @@ public class ThreadDemo {
     }
 
 
-
     /**
      * demo1 常规使用方式  实现Runnable 接口
      */

@@ -9,6 +9,7 @@ class myThread extends Thread{
         System.out.println("ThreadName: " + Thread.currentThread().getName());
     }
 }
+
 public class multiThreadingDemo {
     public static void main(String[] args){
         myThread mth1 = new myThread("thread-A");

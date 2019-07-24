@@ -366,7 +366,6 @@ public class SearchRepetition {
         }
         System.out.println(l3.size());
 
-
         //写入文件a.txt
         try{
             File file = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "a.txt");

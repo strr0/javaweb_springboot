@@ -47,5 +47,6 @@ public class readFromFile {
         catch (IOException i){
             System.out.println("catch IOException.");
         }
+
     }
 }

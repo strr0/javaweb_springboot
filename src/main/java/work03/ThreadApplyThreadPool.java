@@ -43,7 +43,6 @@ public class ThreadApplyThreadPool {
             new LinkedBlockingQueue<Runnable>(50));
 
 
-
     @Test
     public void ThreadTest1(){
 
