@@ -13,11 +13,11 @@ import java.util.*;
  * @date 2019/7/19 下午2:17
  * @since 1.0
  */
-public class x_SearchRepetition {
+public class SearchRepetition {
 
 
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(x_SearchRepetition.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SearchRepetition.class);
 
 
     @Test
@@ -369,7 +369,7 @@ public class x_SearchRepetition {
 
         //写入文件a.txt
         try{
-            File file = new File("F:\\Users\\my\\file\\a.txt");
+            File file = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "a.txt");
             FileOutputStream out = new FileOutputStream(file);
             for(String s : l3){
                 out.write(s.getBytes());

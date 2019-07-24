@@ -72,6 +72,7 @@ public class ThreadApply {
                 try {
                     String str = blockingQueue.poll(5, TimeUnit.MILLISECONDS);
                     if (str != null) {
+                        //System.out.println("Name: " + Thread.currentThread().getName());
                         doSomeThink(str);
                     }
                 }catch (Exception e){
@@ -100,6 +101,7 @@ public class ThreadApply {
                 try {
                     //注意这个put 和offer 的区别，核心要素
                     blockingQueue.offer(random.nextInt(100)+"");
+                    //System.out.println("Name: " + Thread.currentThread().getName());
                     Thread.sleep(100);
                 }catch (Exception e){
                     System.out.println(e);

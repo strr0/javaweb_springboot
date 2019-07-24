@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class x_readFromFile {
+public class readFromFile {
     public static void main(String[] args){
         try{
             //从a.txt中读取内容
-            File file1 = new File("F:\\Users\\my\\file\\a.txt");
+            File file1 = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "a.txt");
             FileInputStream in = new FileInputStream(file1);
             List<String> list = new ArrayList<String>();
             String buffer = new String();
@@ -32,7 +32,7 @@ public class x_readFromFile {
             Collections.sort(list);
 
             //将内容写入b.txt中
-            File file2 = new File("F:\\Users\\my\\file\\b.txt");
+            File file2 = new File("src" + File.separator + "main" + File.separator + "resources" + File.separator + "b.txt");
             FileOutputStream out = new FileOutputStream(file2);
             for(String s : list){
                 out.write(s.getBytes());
