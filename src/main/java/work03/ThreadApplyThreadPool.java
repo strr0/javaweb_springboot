@@ -47,6 +47,8 @@ public class ThreadApplyThreadPool {
     @Test
     public void ThreadTest1(){
 
+
+
         //生产和消费，谁先开始，无关紧要
         Thread consume = new Thread (new Thread1("Thread1"));
         consume.start();

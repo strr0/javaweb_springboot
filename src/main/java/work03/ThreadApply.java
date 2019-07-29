@@ -2,7 +2,9 @@ package work03;
 
 import org.junit.Test;
 
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -26,7 +28,16 @@ public class ThreadApply {
 
     public BlockingQueue<String> blockingQueue =new LinkedBlockingQueue<String>(500);
 
+    @Test
+    public void dd(){
+        Set<String> setOld =new HashSet<String>();
 
+        setOld.add(null);
+
+        System.out.println(setOld.size());
+
+
+    }
 
 
     @Test
