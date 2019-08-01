@@ -6,10 +6,7 @@
   <head>
     <title>首页</title>
      <script type="text/javascript">
-    	function doLogout(){
-    		//访问LogoutServlet注销当前登录的用户
-    		window.location.href="${pageContext.request.contextPath}/servlet/LogoutServlet";
-    	}
+
     </script>
   </head>
   
