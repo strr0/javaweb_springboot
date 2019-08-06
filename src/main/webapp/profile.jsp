@@ -49,26 +49,20 @@
                     <td>${user.tag}</td>
                 </tr>
             </table>
-            <%--<c:set var="mess" value="${user.messages}"></c:set>--%>
-            <table>
-                <tr>留言</tr>
-                <%--<c:if test="${!empty mess}">
-                    <c:forEach var="message" items="${mess}">
-                        <tr>
-                            <th>${message.mName}</th>
-                            <td>${message.mData}</td>
-                        </tr>
-                    </c:forEach>
-                </c:if>--%>
+            <c:set var="messageItems" value="${user.messages}"></c:set>
+            <c:if test="${!empty mess}">
+                <c:forEach var="message" items="${messageItems}">
+                    <div>
+                        ${message.mName}: ${message.mData}
+                    </div>
+                </c:forEach>
+            </c:if>
+            <div>
                 <form>
-                    <tr>
-                        <textarea></textarea>
-                    </tr>
-                    <tr>
-                        <input type="submit" value="提交">
-                    </tr>
+                    <textarea></textarea>
+                    <input />
                 </form>
-            </table>
+            </div>
 
         </c:if>
 
