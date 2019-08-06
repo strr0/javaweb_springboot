@@ -59,8 +59,8 @@ public class User {
     public String getTag() {
         return tag;
     }
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
+    public void addMessages(Message message) {
+        messages.add(message);
     }
     public List<Message> getMessages() {
         return messages;

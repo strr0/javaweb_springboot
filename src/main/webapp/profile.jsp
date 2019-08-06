@@ -49,18 +49,24 @@
                     <td>${user.tag}</td>
                 </tr>
             </table>
+            <div class="show_item">留言</div>
             <c:set var="messageItems" value="${user.messages}"></c:set>
-            <c:if test="${!empty mess}">
+            <c:if test="${!empty messageItems}" var="flag">
                 <c:forEach var="message" items="${messageItems}">
-                    <div>
+                    <div class="show_item">
                         ${message.mName}: ${message.mData}
                     </div>
                 </c:forEach>
             </c:if>
-            <div>
-                <form>
-                    <textarea></textarea>
-                    <input />
+            <c:if test="${not flag}">
+                <div class="show_item">暂无留言</div>
+            </c:if>
+            <div class="show_item">
+                <form action="MessageAddServlet" method="post" id="message_add">
+                    <input type="hidden" name="name" value="${user.name}" />
+                    <input type="hidden" name="mName" value="${sessionScope.nameKey}" />
+                    <textarea form="message_add" name="mData"></textarea>
+                    <input type="submit"/>
                 </form>
             </div>
 
@@ -69,5 +75,6 @@
     </div>
     <div class="blank"></div>
 </div>
+<script src="js/dataCheck.js"></script>
 </body>
 </html>
