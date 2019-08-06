@@ -3,14 +3,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML>
 <html>
-  <head>
-    <title>首页</title>
-     <script type="text/javascript">
+<head>
+<title>首页</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+<script type="text/javascript">
+  function doLogout(){
+    //访问LogoutServlet注销当前登录的用户
+    window.location.href="${pageContext.request.contextPath}/servlet/LogoutServlet";
+  }
+</script>
+</head>
 
-    </script>
-  </head>
-  
-  <body>
-	<h1>神州优车训练营网站</h1>
+<body>
+<div class="box">
+  <h1>神州优车训练营网站</h1>
+  <a href="register.jsp">注册</a> | <a href="login.jsp">登录</a>
+</div>
+
 </body>
 </html>

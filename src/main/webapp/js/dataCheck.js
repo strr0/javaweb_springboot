@@ -1,5 +1,18 @@
 /* 注册部分 */
 
+/* 管理员注册 */
+function adminChange(){
+    var admin = document.getElementById("adminValue");
+    var item = document.getElementById("admin");
+    if(admin.value == "no"){
+        admin.value = "yes";
+        item.innerHTML = "注册管理员";
+    }
+    else{
+        admin.value = "no";
+        item.innerHTML = "注册用户";
+    }
+}
 /* 判断用户名 */
 function isName(value){
     var item = document.getElementById("name_error");
@@ -49,6 +62,7 @@ function isExistName(value, item) {
     }
     xmlhttp.open("GET", "RegisterServlet?name=" + value, true);
     xmlhttp.send();
+    return true;
 }
 /* 判断真实姓名 */
 function isRealName(value){

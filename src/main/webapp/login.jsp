@@ -14,8 +14,9 @@
 </head>
 <body>
 <div class="box">
+    <div class="blank"></div>
     <form action="LoginServlet" method="post">
-        <div class="input_item" style="margin: 20px;">
+        <div class="input_item">
             <font size="5">登录用户</font>
         </div>
         <div class="input_item">
@@ -39,6 +40,7 @@
             <div class="input_field"><input type="button" value="取消" onclick="location.href='login.jsp'" /></div>
         </div>
     </form>
+    <div class="blank"></div>
 </div>
 
 </body>

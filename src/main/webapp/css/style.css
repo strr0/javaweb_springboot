@@ -1,7 +1,16 @@
+body{
+    background-color: gray;
+}
 .box{
     width: 550px;
+    background-color: white;
     margin: auto;
 }
+.blank{
+    height: 20px;
+}
+
+/* 注册登录部分 */
 .input_item{
     width: 500px;
     margin: 10px 20px 0px;
@@ -15,4 +24,14 @@
     width: 100px;
     float: left;
     font-size: 5px;
+}
+
+/* 信息展示部分 */
+.show_item{
+    width: 500px;
+    margin: 10px 20px 0px;
+    overflow: hidden;
+}
+.show_item th{
+    width: 110px;
 }

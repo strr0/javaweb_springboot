@@ -15,9 +15,11 @@
 <body>
 
 <div class="box">
+    <div class="blank"></div>
     <form action="RegisterServlet" method="post" id="register_form" onsubmit="return formCheck()">
-        <div class="input_item" style="margin: 20px;">
-            <font size="5">注册用户</font>
+        <div class="input_item">
+            <font size="5" id="admin" onclick="adminChange()">注册用户</font>
+            <input type="hidden" id="adminValue" name="admin" value="no" />
         </div>
         <div class="input_item">
             <div class="input_field">用户名：</div>
@@ -73,6 +75,7 @@
             </div>
         </div>
     </form>
+    <div class="blank"></div>
 </div>
 
 <script src="js/dataCheck.js"></script>
