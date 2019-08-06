@@ -28,4 +28,5 @@
   - 5.2、分包：dao service controller entity utils ...
   - 5.3、分支以：javaweb_finl_M_xiongmingming 规范；
   - 5.4、剩下的随意发挥，如果发现亮点，可以适当的加分；
+  - 5.5、涉及的页面可能会比较多，建议也要进行分包，比如pages/user pages/messageboard 
  
