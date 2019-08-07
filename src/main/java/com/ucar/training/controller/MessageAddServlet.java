@@ -22,7 +22,13 @@ public class MessageAddServlet extends HttpServlet {
 
         List<User> users = (List<User>)this.getServletContext().getAttribute("usersKey");
         String name = request.getParameter("name");
-        String mName = request.getParameter("mName");
+        //String mName = request.getParameter("mName");
+        String mName = (String)request.getSession().getAttribute("nameKey");
+        if(mName == null){
+            out.println("请先登录...");
+            response.setHeader("refresh", "3,url=LoginServlet");
+            return;
+        }
         String mData = request.getParameter("mData");
         Message message = new Message(mName, mData);
 
@@ -37,6 +43,6 @@ public class MessageAddServlet extends HttpServlet {
         }
 
         this.getServletContext().setAttribute("usersKey", users);
-        request.getRequestDispatcher("/profile.jsp").forward(request, response);
+        request.getRequestDispatcher("ProfileServlet").forward(request, response);
     }
 }

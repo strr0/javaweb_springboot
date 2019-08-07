@@ -25,6 +25,21 @@
         </c:if>
     </div>
     <div class="show_item">
+        <div style="float: right; margin-top: 10px;">
+            <c:set var="users" value="${applicationScope.usersKey}"></c:set>
+            <c:if test="${!empty users}">
+                <table>
+                    <tr>
+                        <th>好友列表</th>
+                    </tr>
+                    <c:forEach var="username" items="${users}">
+                        <tr>
+                            <td><a href="ProfileServlet?name=${username.name}">${username.name}</a></td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </c:if>
+        </div>
         <c:set var="user" value="${requestScope.userKey}"></c:set>
         <c:if test="${!empty user}">
             <table>
@@ -64,7 +79,7 @@
             <div class="show_item">
                 <form action="MessageAddServlet" method="post" id="message_add">
                     <input type="hidden" name="name" value="${user.name}" />
-                    <input type="hidden" name="mName" value="${sessionScope.nameKey}" />
+                    <%--<input type="hidden" name="mName" value="${sessionScope.nameKey}" />--%>
                     <textarea form="message_add" name="mData"></textarea>
                     <input type="submit"/>
                 </form>
