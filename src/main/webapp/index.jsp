@@ -16,8 +16,10 @@
 
 <body>
 <div class="box">
+  <div class="blank"></div>
   <h1>神州优车训练营网站</h1>
-  <a href="register.jsp">注册</a> | <a href="login.jsp">登录</a>
+  <a href="RegisterServlet">注册</a> | <a href="LoginServlet">登录</a>
+  <div class="blank"></div>
 </div>
 
 </body>

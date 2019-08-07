@@ -54,11 +54,13 @@ public class LoginServlet extends HttpServlet {
         }
 
         request.setAttribute("message", "用户名或密码不正确");
-        request.getRequestDispatcher("/login.jsp").forward(request, response);
+        request.getRequestDispatcher("pages/user/login.jsp").forward(request, response);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        request.getRequestDispatcher("pages/user/login.jsp").forward(request, response);
     }
 }

@@ -61,7 +61,7 @@ public class RegisterServlet extends HttpServlet {
 
         out.println("注册成功");
         out.println("(3s后跳转到注册页面)");
-        response.setHeader("refresh", "3;url=register.jsp");
+        response.setHeader("refresh", "3;url=RegisterServlet");
 
     }
 
@@ -74,7 +74,10 @@ public class RegisterServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         String name = request.getParameter("name");
-        if(name != null){  // 判断用户名是否存在
+        if(name == null){
+            request.getRequestDispatcher("pages/user/register.jsp").forward(request, response);
+        }
+        else{  // 判断用户名是否存在
             //判断用户名是否存在
             if(userDAO.isExistName(name)){
                 out.println("该用户名已存在");
