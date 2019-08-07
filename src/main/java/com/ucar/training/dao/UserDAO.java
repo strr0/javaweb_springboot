@@ -35,6 +35,14 @@ public class UserDAO {
         }
         return false;
     }
+    public User getUserByName(String name){
+        for(User user : users){
+            if(name.equals(user.getName())){
+                return user;
+            }
+        }
+        return null;
+    }
 
     public void setUsers(List<User> users) {
         this.users = users;

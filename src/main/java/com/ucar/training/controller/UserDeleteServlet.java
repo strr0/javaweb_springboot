@@ -32,7 +32,7 @@ public class UserDeleteServlet extends HttpServlet {
                     this.getServletContext().setAttribute("usersKey", users);
                     out.println("删除成功");
                     out.println("(3s后跳转到message页面)");
-                    response.setHeader("refresh", "3;url=message.jsp");
+                    response.setHeader("refresh", "3;url=MessageServlet");
                     return;
                 }
             }

@@ -15,6 +15,9 @@
 <body>
 <div class="box">
     <div class="blank"></div>
+    <div style="float: right; margin-right: 10px;">
+        <a href="LogoutServlet">注销</a>
+    </div>
     <c:set var="users" value="${applicationScope.usersKey}"></c:set>
     <c:set var="adminName" value="${sessionScope.nameKey}"></c:set>
     <div class="input_item">
