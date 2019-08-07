@@ -262,6 +262,12 @@ function formCheck(){
     var test10 = isTag(document.getElementById("tag").value);
     return (test1 && test3 && test4 && test5 && test6 && test9 && test10);
 }
+function changeCheck() {
+    var test4 = isAge(document.getElementById("age").value);
+    var test9 = isLike();
+    var test10 = isTag(document.getElementById("tag").value);
+    return (test4 && test9 && test10);
+}
 
 /* 注册部分完毕 */
 

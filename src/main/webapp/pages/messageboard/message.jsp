@@ -43,7 +43,7 @@
                         <td>
                             <div style="overflow: hidden; width: 80px;">
                                 <div style="float: left; width: 40px;">
-                                    <form action="UserChangeServlet" method="post" style="margin: 0;">
+                                    <form action="UserChangeServlet" method="get" style="margin: 0;">
                                         <input type="hidden" name="nameChange" value="${user.name}" />
                                         <input type="submit" style="width: 40px;" value="修改" />
                                     </form>
