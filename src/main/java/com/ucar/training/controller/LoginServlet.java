@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
                     request.getSession().setAttribute("nameKey", name);
                     request.getSession().setAttribute("passwordKey", password);
                     request.setAttribute("userKey", user);
-                    request.getRequestDispatcher("/profile.jsp").forward(request, response);
+                    request.getRequestDispatcher("pages/user/profile.jsp").forward(request, response);
                     //out.println("登录成功");
                     return;
                 }
