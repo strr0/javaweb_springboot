@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
@@ -18,6 +19,16 @@ public class RegisterServlet extends HttpServlet {
     public void init() throws ServletException {
         //
         userDAO = new UserDAO();
+        //检测是否有更新
+        List<User> admins = (List<User>)this.getServletContext().getAttribute("adminsKey");
+        if(admins != null){
+            userDAO.setAdmins(admins);
+        }
+        List<User> users = (List<User>) this.getServletContext().getAttribute("usersKey");
+        if(users != null){
+            userDAO.setUsers(users);
+        }
+        //更新
         this.getServletContext().setAttribute("usersKey", userDAO.getUsers());
         this.getServletContext().setAttribute("adminsKey", userDAO.getAdmins());
         System.out.println("RegisterServlet init.");
@@ -49,15 +60,28 @@ public class RegisterServlet extends HttpServlet {
 
         //保存用户信息
         User user = new User(name, sex, age, password, like, tag);
-        if(admin.equals("yes")){
-            userDAO.adminAdd(user);
-            this.getServletContext().setAttribute("adminsKey", userDAO.getAdmins());
+        if(userDAO.getUserByName(name) == null){
+            if(admin.equals("yes")){
+                userDAO.adminAdd(user);
+                this.getServletContext().setAttribute("adminsKey", userDAO.getAdmins());
+            }
+            else{
+                userDAO.userAdd(user);
+                this.getServletContext().setAttribute("usersKey", userDAO.getUsers());
+            }
         }
         else{
-            userDAO.userAdd(user);
-            this.getServletContext().setAttribute("usersKey", userDAO.getUsers());
+            if(request.getSession().getAttribute("adminKey") != null){
+                userDAO.userDataChange(user);
+                out.println("修改成功");
+                out.println("(3s后跳转到message页面)");
+                response.setHeader("refresh", "3,url=MessageServlet");
+            }
+            else{
+                out.println("用户已存在");
+            }
+            return;
         }
-
 
         out.println("注册成功");
         out.println("(3s后跳转到注册页面)");
@@ -78,7 +102,6 @@ public class RegisterServlet extends HttpServlet {
             request.getRequestDispatcher("pages/user/register.jsp").forward(request, response);
         }
         else{  // 判断用户名是否存在
-            //判断用户名是否存在
             if(userDAO.isExistName(name)){
                 out.println("该用户名已存在");
                 return;

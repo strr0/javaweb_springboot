@@ -28,11 +28,11 @@
             用户列表
             <table border="1">
                 <tr>
-                    <th>用户名</th>
-                    <th>性别</th>
-                    <th>年龄</th>
-                    <th>爱好</th>
-                    <th style="width: 60px;"></th>
+                    <th style="width: 100px;">用户名</th>
+                    <th style="width: 100px;">性别</th>
+                    <th style="width: 100px;">年龄</th>
+                    <th style="width: 120px;">爱好</th>
+                    <th style="width: 80px;"></th>
                 </tr>
                 <c:forEach var="user" items="${users}">
                     <tr>
@@ -40,11 +40,21 @@
                         <td><c:out value="${user.sex}"></c:out></td>
                         <td><c:out value="${user.age}"></c:out></td>
                         <td><c:out value="${user.like}"></c:out></td>
-                        <td style="width: 60px;">
-                            <form action="UserDeleteServlet" method="post">
-                                <input type="hidden" name="name" value="${user.name}" />
-                                <input type="submit" value="删除" />
-                            </form>
+                        <td>
+                            <div style="overflow: hidden; width: 80px;">
+                                <div style="float: left; width: 40px;">
+                                    <form action="UserChangeServlet" method="post" style="margin: 0;">
+                                        <input type="hidden" name="nameChange" value="${user.name}" />
+                                        <input type="submit" style="width: 40px;" value="修改" />
+                                    </form>
+                                </div>
+                                <div style="float: left; width: 40px;">
+                                    <form action="UserDeleteServlet" method="post" style="margin: 0;">
+                                        <input type="hidden" name="nameDelete" value="${user.name}" />
+                                        <input type="submit" style="width: 40px;" value="删除" />
+                                    </form>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 </c:forEach>

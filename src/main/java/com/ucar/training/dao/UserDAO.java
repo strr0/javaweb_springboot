@@ -43,6 +43,13 @@ public class UserDAO {
         }
         return null;
     }
+    public void userDataChange(User user){
+        for(int i = 0; i < users.size(); i++){
+            if(users.get(i).getName().equals(user.getName())){
+                users.set(i, user);
+            }
+        }
+    }
 
     public void setUsers(List<User> users) {
         this.users = users;
