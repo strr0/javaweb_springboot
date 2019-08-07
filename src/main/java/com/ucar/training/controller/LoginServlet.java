@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
                     request.getSession().setAttribute("adminKey", "yes");
                     request.getSession().setAttribute("nameKey", name);
                     request.getSession().setAttribute("passwordKey", password);
-                    response.sendRedirect("message.jsp");
+                    request.getRequestDispatcher("pages/messageboard/message.jsp").forward(request, response);
                     return;
                 }
             }
