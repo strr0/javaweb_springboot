@@ -35,3 +35,7 @@ body{
 .show_item th{
     width: 110px;
 }
+.home_bt{
+    float: right;
+    margin-right: 10px;
+}
