@@ -62,7 +62,7 @@ function isExistName(value, item) {
     }
     xmlhttp.open("GET", "RegisterServlet?name=" + value, true);
     xmlhttp.send();
-    return true;
+    //return true;
 }
 /* 判断真实姓名 */
 function isRealName(value){

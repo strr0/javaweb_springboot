@@ -1,5 +1,6 @@
 package com.ucar.training.controller;
 
+import com.ucar.training.dao.UserDAO;
 import com.ucar.training.entity.User;
 
 import javax.servlet.ServletException;
@@ -9,25 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
-    List<User> users;
-    List<User> admins;
+    private UserDAO userDAO;
     @Override
     public void init() throws ServletException {
-        //初始化用户列表  需先注册一个用户生效
-        users = new ArrayList<>();
-        users.add(new User("中文名字", "男", 20, "123123", "撩妹, 写代码", "no.1"));
-        users.add(new User("不ok", "女", 22, "123123", "篮球, 足球", "no.2"));
-        users.add(new User("EnglishName", "女", 21, "123123", "写代码", "no.3"));
-        this.getServletContext().setAttribute("usersKey", users);
         //
-        admins = new ArrayList<>();
-        admins.add(new User("root", "男", 21, "password", "写代码", "个性签名"));
-        this.getServletContext().setAttribute("adminsKey", admins);
+        userDAO = new UserDAO();
+        this.getServletContext().setAttribute("usersKey", userDAO.getUsers());
+        this.getServletContext().setAttribute("adminsKey", userDAO.getAdmins());
         System.out.println("RegisterServlet init.");
     }
     @Override
@@ -58,12 +50,12 @@ public class RegisterServlet extends HttpServlet {
         //保存用户信息
         User user = new User(name, sex, age, password, like, tag);
         if(admin.equals("yes")){
-            admins.add(user);
-            this.getServletContext().setAttribute("adminsKey", admins);
+            userDAO.adminAdd(user);
+            this.getServletContext().setAttribute("adminsKey", userDAO.getAdmins());
         }
         else{
-            users.add(user);
-            this.getServletContext().setAttribute("usersKey", users);
+            userDAO.userAdd(user);
+            this.getServletContext().setAttribute("usersKey", userDAO.getUsers());
         }
 
 
@@ -83,23 +75,10 @@ public class RegisterServlet extends HttpServlet {
 
         String name = request.getParameter("name");
         if(name != null){  // 判断用户名是否存在
-            //普通用户
-            if(users != null){
-                for(User user : users){
-                    if(name.compareTo(user.getName()) == 0){
-                        out.println("该用户已存在");
-                        return;
-                    }
-                }
-            }
-            //管理员
-            if(admins != null){
-                for(User admin : admins){
-                    if(name.equals(admin.getName())){
-                        out.println("该用户已存在");
-                        return;
-                    }
-                }
+            //判断用户名是否存在
+            if(userDAO.isExistName(name)){
+                out.println("该用户名已存在");
+                return;
             }
             out.println("ok!");
             return;
