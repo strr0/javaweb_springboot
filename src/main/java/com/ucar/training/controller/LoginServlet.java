@@ -1,5 +1,6 @@
 package com.ucar.training.controller;
 
+import com.ucar.training.dao.UserDAO;
 import com.ucar.training.entity.User;
 
 import javax.servlet.ServletException;
@@ -14,8 +15,7 @@ import java.util.List;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
-    private List<User> users;
-    private List<User> admins;
+    private UserDAO userDAO = new UserDAO();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,7 +25,8 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         PrintWriter out = response.getWriter();
         //普通用户
-        users = (List<User>) this.getServletContext().getAttribute("usersKey");
+        List<User> users = (List<User>) this.getServletContext().getAttribute("usersKey");
+        userDAO.setUsers(users);
         if(users != null){
             for(User user : users){
                 if(name.equals(user.getName()) && password.equals(user.getPassword())){
@@ -40,7 +41,8 @@ public class LoginServlet extends HttpServlet {
             }
         }
         //管理员
-        admins = (List<User>)this.getServletContext().getAttribute("adminsKey");
+        List<User> admins = (List<User>)this.getServletContext().getAttribute("adminsKey");
+        userDAO.setAdmins(admins);
         if(admins != null){
             for(User admin : admins){
                 if(name.equals(admin.getName()) && password.equals(admin.getPassword())){

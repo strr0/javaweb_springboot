@@ -36,8 +36,14 @@ public class UserDAO {
         return false;
     }
 
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
     public List<User> getUsers() {
         return users;
+    }
+    public void setAdmins(List<User> admins) {
+        this.admins = admins;
     }
     public List<User> getAdmins() {
         return admins;
