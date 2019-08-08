@@ -3,7 +3,7 @@ body{
 }
 .box{
     width: 550px;
-    background-color: white;
+    background-color: lavenderblush;
     margin: auto;
 }
 .blank{
@@ -35,4 +35,48 @@ body{
 .home_bt{
     float: right;
     margin-right: 10px;
+}
+
+/* 注册登录按钮 */
+.bt1{
+    width: 80px;
+    height: 40px;
+    background-color: #DDEEFF;
+    border: 0;
+}
+
+/* message页面按钮 */
+.bt_user_add{
+    background-color: white;
+    border: 0;
+}
+.bt_user_change{
+    width: 40px;
+    background-color: white;
+    border: 0;
+}
+.bt_user_delete{
+    width: 40px;
+    background-color: white;
+    color: red;
+    border: 0;
+}
+
+/* 留言板 */
+.board_wrap{
+    width: 500px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+.board{
+    padding: 10px;
+    width: 400px;
+    background-color: beige;
+    float: left;
+}
+.bt_delete{
+    height: 30px;
+    background-color: white;
+    color: red;
+    border: 0;
 }

@@ -1,8 +1,5 @@
 package com.ucar.training.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class User {
     private String name;
     private String sex;
@@ -10,7 +7,6 @@ public class User {
     private String password;
     private String like;
     private String tag;
-    private List<Message> messages;
 
     public User(){}
     public User(String name, String sex, int age, String password, String like, String tag){
@@ -20,7 +16,6 @@ public class User {
         this.password = password;
         this.like = like;
         this.tag = tag;
-        this.messages = new ArrayList<>();
     }
 
     public void setName(String name) {
@@ -58,12 +53,6 @@ public class User {
     }
     public String getTag() {
         return tag;
-    }
-    public void addMessages(Message message) {
-        messages.add(message);
-    }
-    public List<Message> getMessages() {
-        return messages;
     }
 }
 

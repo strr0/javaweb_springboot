@@ -12,7 +12,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/MessageAddServlet")
+//@WebServlet("/MessageAddServlet")
+/*
 public class MessageAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,3 +47,4 @@ public class MessageAddServlet extends HttpServlet {
         request.getRequestDispatcher("ProfileServlet").forward(request, response);
     }
 }
+*/

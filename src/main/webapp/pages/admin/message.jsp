@@ -32,7 +32,9 @@
                     <th style="width: 100px;">性别</th>
                     <th style="width: 100px;">年龄</th>
                     <th style="width: 120px;">爱好</th>
-                    <th style="width: 80px;"></th>
+                    <th style="width: 80px;">
+                        <button class="bt_user_add" onclick="location.href='RegisterServlet'">添加用户</button>
+                    </th>
                 </tr>
                 <c:forEach var="user" items="${users}">
                     <tr>
@@ -45,13 +47,13 @@
                                 <div style="float: left; width: 40px;">
                                     <form action="UserChangeServlet" method="get" style="margin: 0;">
                                         <input type="hidden" name="nameChange" value="${user.name}" />
-                                        <input type="submit" style="width: 40px;" value="修改" />
+                                        <input type="submit" class="bt_user_change" value="修改" />
                                     </form>
                                 </div>
                                 <div style="float: left; width: 40px;">
                                     <form action="UserDeleteServlet" method="post" style="margin: 0;">
                                         <input type="hidden" name="nameDelete" value="${user.name}" />
-                                        <input type="submit" style="width: 40px;" value="删除" />
+                                        <input type="submit" class="bt_user_delete" value="删除" />
                                     </form>
                                 </div>
                             </div>
@@ -64,6 +66,7 @@
             暂无用户注册
         </c:if>
     </div>
+    <a href="MessageBoardServlet">留言板</a>
     <div class="blank"></div>
 </div>
 </body>

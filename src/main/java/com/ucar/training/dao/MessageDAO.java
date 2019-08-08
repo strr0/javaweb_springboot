@@ -16,7 +16,18 @@ public class MessageDAO {
     public static List<Message> getMessages() {
         return messages;
     }
+    //添加
     public static void addMessageBoard(Message message){
         messages.add(message);
+    }
+    //删除
+    public static void deleteMessageBoard(String date){
+        for(int i = 0; i < messages.size(); i++){
+            Message message = messages.get(i);
+            if(date.equals(message.getmDate())){
+                messages.remove(i);
+                return;
+            }
+        }
     }
 }

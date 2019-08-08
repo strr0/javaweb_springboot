@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
         //普通用户
         User user = UserDAO.userMatch(name, password);
         if(user != null){
-            request.getSession().setAttribute("adminKey", "no");
+            //request.getSession().setAttribute("adminKey", "no");
             request.getSession().setAttribute("nameKey", name);
             request.getSession().setAttribute("passwordKey", password);
             request.setAttribute("userKey", user);

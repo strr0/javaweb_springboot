@@ -17,7 +17,7 @@
 <body>
 <div class="box">
   <div class="blank"></div>
-  <div class="show_item">
+  <div class="show_item" style="text-align: center;">
     <h1>神州优车训练营网站</h1>
     <a href="RegisterServlet">注册</a> | <a href="LoginServlet">登录</a>
   </div>

@@ -37,8 +37,8 @@
             </div>
         </div>
         <div class="input_item">
-            <div class="input_field"><input type="submit" value="登录" /></div>
-            <div class="input_field"><input type="button" value="取消" onclick="location.href='login.jsp'" /></div>
+            <div class="input_field"><input type="submit" class="bt1" value="登录" /></div>
+            <div class="input_field"><input type="button" class="bt1" value="取消" onclick="location.href='LoginServlet'" /></div>
         </div>
     </form>
     <div class="blank"></div>

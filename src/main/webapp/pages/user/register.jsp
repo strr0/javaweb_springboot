@@ -69,10 +69,10 @@
         </div>
         <div class="input_item">
             <div class="input_field">
-                <input type="submit" value="注册" />
+                <input type="submit" class="bt1" value="注册" />
             </div>
             <div class="input_field">
-                <input type="button" onclick="window.location.href='register.jsp'" value="取消" />
+                <input type="button" class="bt1" onclick="window.location.href='RegisterServlet'" value="取消" />
             </div>
         </div>
     </form>
