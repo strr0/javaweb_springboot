@@ -11,7 +11,7 @@ import java.io.IOException;
 public class MessageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("pages/messageboard/message.jsp").forward(request, response);
+        request.getRequestDispatcher("pages/admin/message.jsp").forward(request, response);
     }
 
     @Override

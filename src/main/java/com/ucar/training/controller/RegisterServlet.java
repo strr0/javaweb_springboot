@@ -10,29 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
-    private UserDAO userDAO;
+
     @Override
     public void init() throws ServletException {
-        //
-        userDAO = new UserDAO();
-        //检测是否有更新
-        List<User> admins = (List<User>)this.getServletContext().getAttribute("adminsKey");
-        if(admins != null){
-            userDAO.setAdmins(admins);
+        if(UserDAO.getAdmins() == null){
+            UserDAO.initUserDao();
+            this.getServletContext().setAttribute("adminsKey", UserDAO.getAdmins());
+            this.getServletContext().setAttribute("usersKey", UserDAO.getUsers());
         }
-        List<User> users = (List<User>) this.getServletContext().getAttribute("usersKey");
-        if(users != null){
-            userDAO.setUsers(users);
-        }
-        //更新
-        this.getServletContext().setAttribute("usersKey", userDAO.getUsers());
-        this.getServletContext().setAttribute("adminsKey", userDAO.getAdmins());
-        System.out.println("RegisterServlet init.");
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 设置request编码为UTF-8
@@ -60,19 +50,19 @@ public class RegisterServlet extends HttpServlet {
 
         //保存用户信息
         User user = new User(name, sex, age, password, like, tag);
-        if(userDAO.getUserByName(name) == null){
+        if(UserDAO.getUserByName(name) == null){  //用户名不存在
             if(admin.equals("yes")){
-                userDAO.adminAdd(user);
-                this.getServletContext().setAttribute("adminsKey", userDAO.getAdmins());
+                UserDAO.adminAdd(user);
+                this.getServletContext().setAttribute("adminsKey", UserDAO.getAdmins());
             }
             else{
-                userDAO.userAdd(user);
-                this.getServletContext().setAttribute("usersKey", userDAO.getUsers());
+                UserDAO.userAdd(user);
+                this.getServletContext().setAttribute("usersKey", UserDAO.getUsers());
             }
         }
-        else{
+        else{  //用户名已存在
             if(request.getSession().getAttribute("adminKey") != null){
-                userDAO.userDataChange(user);
+                UserDAO.userDataChange(user);
                 out.println("修改成功");
                 out.println("(3s后跳转到message页面)");
                 response.setHeader("refresh", "3,url=MessageServlet");
@@ -91,10 +81,7 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // request编码
-        request.setCharacterEncoding("UTF-8");
-        // response编码
-        response.setContentType("text/html;charset=UTF-8");
+
         PrintWriter out = response.getWriter();
 
         String name = request.getParameter("name");
@@ -102,7 +89,7 @@ public class RegisterServlet extends HttpServlet {
             request.getRequestDispatcher("pages/user/register.jsp").forward(request, response);
         }
         else{  // 判断用户名是否存在
-            if(userDAO.isExistName(name)){
+            if(UserDAO.isExistName(name)){
                 out.println("该用户名已存在");
                 return;
             }

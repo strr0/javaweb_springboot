@@ -1,13 +1,19 @@
 package com.ucar.training.entity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Message {
     private String mName;
     private String mData;
+    private String mDate;
 
     public Message(){}
     public Message(String mName, String mData){
         this.mName = mName;
         this.mData = mData;
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        this.mDate = df.format(new Date());
     }
 
     public void setmName(String mName) {
@@ -21,5 +27,8 @@ public class Message {
     }
     public String getmData() {
         return mData;
+    }
+    public String getmDate() {
+        return mDate;
     }
 }

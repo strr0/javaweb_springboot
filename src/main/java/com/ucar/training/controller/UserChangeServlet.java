@@ -10,19 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 @WebServlet("/UserChangeServlet")
 public class UserChangeServlet extends HttpServlet {
-    private UserDAO userDAO;
 
     @Override
     public void init() throws ServletException {
-        userDAO = new UserDAO();
-        List<User> users = (List<User>)this.getServletContext().getAttribute("usersKey");
-        userDAO.setUsers(users);
-        List<User> admins = (List<User>)this.getServletContext().getAttribute("adminsKey");
-        userDAO.setAdmins(admins);
+        if(UserDAO.getAdmins() == null){
+            UserDAO.initUserDao();
+            this.getServletContext().setAttribute("adminsKey", UserDAO.getAdmins());
+            this.getServletContext().setAttribute("usersKey", UserDAO.getUsers());
+        }
     }
 
     @Override
@@ -31,9 +29,9 @@ public class UserChangeServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String nameChange = request.getParameter("nameChange");
         if(nameChange != null){
-            User user = userDAO.getUserByName(nameChange);
+            User user = UserDAO.getUserByName(nameChange);
             request.setAttribute("userKey", user);
-            request.getRequestDispatcher("pages/messageboard/messageChange.jsp").forward(request, response);
+            request.getRequestDispatcher("pages/admin/messageChange.jsp").forward(request, response);
         }
     }
 
@@ -48,7 +46,7 @@ public class UserChangeServlet extends HttpServlet {
         String Age = request.getParameter("age");
         String[] likes = request.getParameterValues("like");
         String tag = request.getParameter("tag");
-        User user = userDAO.getUserByName(name);
+        User user = UserDAO.getUserByName(name);
         if(sex != null){
             user.setSex(sex);
         }
@@ -67,9 +65,10 @@ public class UserChangeServlet extends HttpServlet {
         if(tag != null){
             user.setTag(tag);
         }
-        userDAO.userDataChange(user);
-        this.getServletContext().setAttribute("usersKey", userDAO.getUsers());
+        UserDAO.userDataChange(user);
+        this.getServletContext().setAttribute("usersKey", UserDAO.getUsers());
         out.println("修改成功");
+        out.println("(3s后回到message界面)");
         response.setHeader("refresh", "3,url=MessageServlet");
     }
 }
