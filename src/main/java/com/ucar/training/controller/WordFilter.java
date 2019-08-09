@@ -19,7 +19,7 @@ public class WordFilter implements Filter {
             @Override
             public String getParameter(String name){
                 String value = super.getParameter(name);
-                if(value.contains("傻逼") || value.contains("白痴")){
+                if(value.contains("傻逼") || value.contains("白痴") || value.contains("操你妈")){
                     value = "**";
                 }
                 return value;

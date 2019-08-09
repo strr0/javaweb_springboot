@@ -31,8 +31,8 @@
             <div class="input_item">
                 <div class="input_field">性别: </div>
                 <div class="input_field">
-                    <input type="radio" id="sex" name="sex" value="男" checked>男</input>
-                    <input type="radio" id="sex" name="sex" value="女">女</input>
+                    <input type="radio" id="sex" name="sex" value="男" ${user.sex.contains("男")?"":"checked"}>男</input>
+                    <input type="radio" id="sex" name="sex" value="女" ${user.sex.contains("女")?"":"checked"}>女</input>
                 </div>
             </div>
             <div class="input_item">
@@ -45,10 +45,10 @@
             <div class="input_item">
                 <div class="input_field">爱好：</div>
                 <div class="input_field">
-                    <input type="checkbox" name="like" value="撩妹" onblur="isLike()">撩妹</input>
-                    <input type="checkbox" name="like" value="写代码" onblur="isLike()">写代码</input>
-                    <input type="checkbox" name="like" value="篮球" onblur="isLike()">篮球</input>
-                    <input type="checkbox" name="like" value="足球" onblur="isLike()">足球</input>
+                    <input type="checkbox" name="like" value="撩妹" onblur="isLike()" ${user.like.contains("撩妹")?"":"checked"}>撩妹</input>
+                    <input type="checkbox" name="like" value="写代码" onblur="isLike()" ${user.like.contains("写代码")?"":"checked"}>写代码</input>
+                    <input type="checkbox" name="like" value="篮球" onblur="isLike()" ${user.like.contains("篮球")?"":"checked"}>篮球</input>
+                    <input type="checkbox" name="like" value="足球" onblur="isLike()" ${user.like.contains("足球")?"":"checked"}>足球</input>
                 </div>
                 <div class="input_error" id="like_error"></div>
             </div>
