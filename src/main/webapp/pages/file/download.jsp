@@ -15,6 +15,7 @@
 <body>
 <div class="box">
     <div class="blank"></div>
+    <div class="home_bt"><a href="index.jsp">返回</a></div>
     <div class="show_item">
         <div>
             <font size="5">图片下载</font>

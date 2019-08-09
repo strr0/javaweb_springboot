@@ -56,6 +56,8 @@ public class UploadServlet extends HttpServlet {
                         item.write(storeFile);
                         System.out.println(filePath);
                         out.println("上传成功");
+                        out.println("(3s后回到上传界面)");
+                        response.setHeader("refresh", "3,url=UploadServlet");
                     }
                 }
             }

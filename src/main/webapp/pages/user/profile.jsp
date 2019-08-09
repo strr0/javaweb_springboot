@@ -42,6 +42,8 @@
         </div>
         <c:set var="user" value="${requestScope.userKey}"></c:set>
         <c:if test="${!empty user}">
+            <font size="5">用户信息</font>
+            <div class="blank"></div>
             <div style="margin-left: 20px">
                 <table>
                     <tr>
@@ -68,7 +70,7 @@
             </div>
         </c:if>
     </div>
-    <a href="MessageBoardServlet">留言板</a>
+    <div style="margin-left: 10px;"><a href="MessageBoardServlet">留言板</a></div>
     <div class="blank"></div>
 </div>
 <script src="js/dataCheck.js"></script>

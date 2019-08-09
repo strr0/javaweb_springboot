@@ -6,12 +6,24 @@
 <head>
 <title>首页</title>
   <link rel="stylesheet" type="text/css" href="css/style.css" />
-<script type="text/javascript">
-  function doLogout(){
-    //访问LogoutServlet注销当前登录的用户
-    window.location.href="${pageContext.request.contextPath}/servlet/LogoutServlet";
-  }
-</script>
+  <style>
+    body{
+      background-color: gray;
+    }
+    .box{
+      width: 550px;
+      background-color: lavenderblush;
+      margin: auto;
+    }
+    .blank{
+      height: 20px;
+    }
+    .show_item{
+      width: 500px;
+      margin: 10px 20px 0px;
+      overflow: hidden;
+    }
+  </style>
 </head>
 
 <body>
@@ -19,7 +31,14 @@
   <div class="blank"></div>
   <div class="show_item" style="text-align: center;">
     <h1>神州优车训练营网站</h1>
-    <a href="RegisterServlet">注册</a> | <a href="LoginServlet">登录</a>
+    <div class="blank" style="overflow: hidden;">
+      <div style="float: right">
+        <a href="UploadServlet">upload</a> <a href="DownloadServlet">download</a>
+      </div>
+    </div>
+    <div>
+      <a href="RegisterServlet">注册</a> | <a href="LoginServlet">登录</a>
+    </div>
   </div>
   <div class="blank"></div>
 </div>

@@ -66,7 +66,7 @@
             暂无用户注册
         </c:if>
     </div>
-    <a href="MessageBoardServlet">留言板</a>
+    <div style="margin-left: 10px;"><a href="MessageBoardServlet">留言板</a></div>
     <div class="blank"></div>
 </div>
 </body>
