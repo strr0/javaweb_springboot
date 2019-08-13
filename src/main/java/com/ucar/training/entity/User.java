@@ -7,15 +7,17 @@ public class User {
     private String password;
     private String like;
     private String tag;
+    private int admin;  // 0为普通用户 1为管理员
 
     public User(){}
-    public User(String name, String sex, int age, String password, String like, String tag){
+    public User(String name, String sex, int age, String password, String like, String tag, int admin){
         this.name = name;
         this.sex = sex;
         this.age = age;
         this.password = password;
         this.like = like;
         this.tag = tag;
+        this.admin = admin;
     }
 
     public void setName(String name) {

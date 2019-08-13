@@ -1,6 +1,6 @@
 package com.ucar.training.controller;
 
-import com.ucar.training.dao.UserDAO;
+import com.ucar.training.dao.impl.UserDaoImpl;
 import com.ucar.training.entity.User;
 
 import javax.servlet.ServletException;
@@ -16,10 +16,10 @@ public class UserChangeServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        if(UserDAO.getAdmins() == null){
-            UserDAO.initUserDao();
-            this.getServletContext().setAttribute("adminsKey", UserDAO.getAdmins());
-            this.getServletContext().setAttribute("usersKey", UserDAO.getUsers());
+        if(UserDaoImpl.getAdmins() == null){
+            UserDaoImpl.initUserDao();
+            this.getServletContext().setAttribute("adminsKey", UserDaoImpl.getAdmins());
+            this.getServletContext().setAttribute("usersKey", UserDaoImpl.getUsers());
         }
     }
 
@@ -29,7 +29,7 @@ public class UserChangeServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String nameChange = request.getParameter("nameChange");
         if(nameChange != null){
-            User user = UserDAO.getUserByName(nameChange);
+            User user = UserDaoImpl.getUserByName(nameChange);
             request.setAttribute("userKey", user);
             request.getRequestDispatcher("pages/admin/messageChange.jsp").forward(request, response);
         }
@@ -46,7 +46,7 @@ public class UserChangeServlet extends HttpServlet {
         String Age = request.getParameter("age");
         String[] likes = request.getParameterValues("like");
         String tag = request.getParameter("tag");
-        User user = UserDAO.getUserByName(name);
+        User user = UserDaoImpl.getUserByName(name);
         if(sex != null){
             user.setSex(sex);
         }
@@ -65,8 +65,8 @@ public class UserChangeServlet extends HttpServlet {
         if(tag != null){
             user.setTag(tag);
         }
-        UserDAO.userDataChange(user);
-        this.getServletContext().setAttribute("usersKey", UserDAO.getUsers());
+        UserDaoImpl.userDataChange(user);
+        this.getServletContext().setAttribute("usersKey", UserDaoImpl.getUsers());
         out.println("修改成功");
         out.println("(3s后回到message界面)");
         response.setHeader("refresh", "3,url=MessageServlet");

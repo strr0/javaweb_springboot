@@ -1,6 +1,6 @@
 package com.ucar.training.controller;
 
-import com.ucar.training.dao.UserDAO;
+import com.ucar.training.dao.impl.UserDaoImpl;
 import com.ucar.training.entity.User;
 
 import javax.servlet.ServletException;
@@ -15,8 +15,8 @@ public class ProfileServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        if(UserDAO.getAdmins() == null){
-            UserDAO.initUserDao();
+        if(UserDaoImpl.getAdmins() == null){
+            UserDaoImpl.initUserDao();
         }
     }
 
@@ -28,7 +28,7 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");
-        User user = UserDAO.getUserByName(name);
+        User user = UserDaoImpl.getUserByName(name);
         request.setAttribute("userKey", user);
         request.getRequestDispatcher("pages/user/profile.jsp").forward(request, response);
     }

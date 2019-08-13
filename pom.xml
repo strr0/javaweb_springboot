@@ -27,6 +27,7 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+
     <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -34,6 +35,7 @@
       <version>3.0.1</version>
       <scope>provided</scope>
     </dependency>
+
     <!-- JSTL -->
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -45,18 +47,42 @@
       <artifactId>standard</artifactId>
       <version>1.1.2</version>
     </dependency>
+
     <!-- Commons IO -->
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
       <version>2.6</version>
     </dependency>
+
     <!-- Commons FileUpload -->
     <dependency>
       <groupId>commons-fileupload</groupId>
       <artifactId>commons-fileupload</artifactId>
       <version>1.4</version>
     </dependency>
+
+    <!-- JDBC -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.17</version>
+    </dependency>
+
+    <!-- H2 -->
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>1.4.199</version>
+    </dependency>
+
+    <!-- Spring JDBC -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>5.1.9.RELEASE</version>
+    </dependency>
+
   </dependencies>
 
   <build>

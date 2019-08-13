@@ -1,6 +1,6 @@
 package com.ucar.training.controller;
 
-import com.ucar.training.dao.UserDAO;
+import com.ucar.training.dao.impl.UserDaoImpl;
 import com.ucar.training.entity.User;
 
 import javax.servlet.ServletException;
@@ -9,19 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        if(UserDAO.getAdmins() == null){
-            UserDAO.initUserDao();
-            this.getServletContext().setAttribute("adminsKey", UserDAO.getAdmins());
-            this.getServletContext().setAttribute("usersKey", UserDAO.getUsers());
+        if(UserDaoImpl.getAdmins() == null){
+            UserDaoImpl.initUserDao();
+            this.getServletContext().setAttribute("adminsKey", UserDaoImpl.getAdmins());
+            this.getServletContext().setAttribute("usersKey", UserDaoImpl.getUsers());
         }
     }
 
@@ -31,7 +28,7 @@ public class LoginServlet extends HttpServlet {
         String name = request.getParameter("name");
         String password = request.getParameter("password");
         //普通用户
-        User user = UserDAO.userMatch(name, password);
+        User user = UserDaoImpl.userMatch(name, password);
         if(user != null){
             //request.getSession().setAttribute("adminKey", "no");
             request.getSession().setAttribute("nameKey", name);
@@ -42,7 +39,7 @@ public class LoginServlet extends HttpServlet {
             return;
         }
         //管理员
-        else if(UserDAO.adminMatch(name, password)){
+        else if(UserDaoImpl.adminMatch(name, password)){
             request.getSession().setAttribute("adminKey", "yes");
             request.getSession().setAttribute("nameKey", name);
             request.getSession().setAttribute("passwordKey", password);
@@ -66,7 +63,7 @@ public class LoginServlet extends HttpServlet {
                 return;
             }
             else{
-                User user = UserDAO.getUserByName(name);
+                User user = UserDaoImpl.getUserByName(name);
                 request.setAttribute("userKey", user);
                 request.getRequestDispatcher("pages/user/profile.jsp").forward(request, response);
                 return;

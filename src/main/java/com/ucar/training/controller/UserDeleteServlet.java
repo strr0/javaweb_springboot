@@ -1,6 +1,6 @@
 package com.ucar.training.controller;
 
-import com.ucar.training.dao.UserDAO;
+import com.ucar.training.dao.impl.UserDaoImpl;
 import com.ucar.training.entity.User;
 
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ public class UserDeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
 
-        List<User> users = UserDAO.getUsers();
+        List<User> users = UserDaoImpl.getUsers();
         if(users == null){
             out.println("无效删除");
             return;
@@ -27,7 +27,7 @@ public class UserDeleteServlet extends HttpServlet {
         String nameDelete = request.getParameter("nameDelete");
 
         if(admin.equals("yes")){  //判断是否为管理员操作
-            users = UserDAO.userDelete(nameDelete);
+            users = UserDaoImpl.userDelete(nameDelete);
             this.getServletContext().setAttribute("usersKey", users);
             out.println("删除成功");
             out.println("(3s后跳转到message页面)");

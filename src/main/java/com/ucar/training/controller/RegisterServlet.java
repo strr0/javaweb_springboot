@@ -1,6 +1,6 @@
 package com.ucar.training.controller;
 
-import com.ucar.training.dao.UserDAO;
+import com.ucar.training.dao.impl.UserDaoImpl;
 import com.ucar.training.entity.User;
 
 import javax.servlet.ServletException;
@@ -16,10 +16,10 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        if(UserDAO.getAdmins() == null){
-            UserDAO.initUserDao();
-            this.getServletContext().setAttribute("adminsKey", UserDAO.getAdmins());
-            this.getServletContext().setAttribute("usersKey", UserDAO.getUsers());
+        if(UserDaoImpl.getAdmins() == null){
+            UserDaoImpl.initUserDao();
+            this.getServletContext().setAttribute("adminsKey", UserDaoImpl.getAdmins());
+            this.getServletContext().setAttribute("usersKey", UserDaoImpl.getUsers());
         }
     }
 
@@ -49,20 +49,20 @@ public class RegisterServlet extends HttpServlet {
         String tag = request.getParameter("tag");
 
         //保存用户信息
-        User user = new User(name, sex, age, password, like, tag);
-        if(UserDAO.getUserByName(name) == null){  //用户名不存在
+        User user = new User(name, sex, age, password, like, tag, 0);
+        if(UserDaoImpl.getUserByName(name) == null){  //用户名不存在
             if(admin.equals("yes")){
-                UserDAO.adminAdd(user);
-                this.getServletContext().setAttribute("adminsKey", UserDAO.getAdmins());
+                UserDaoImpl.adminAdd(user);
+                this.getServletContext().setAttribute("adminsKey", UserDaoImpl.getAdmins());
             }
             else{
-                UserDAO.userAdd(user);
-                this.getServletContext().setAttribute("usersKey", UserDAO.getUsers());
+                UserDaoImpl.userAdd(user);
+                this.getServletContext().setAttribute("usersKey", UserDaoImpl.getUsers());
             }
         }
         else{  //用户名已存在
             if(request.getSession().getAttribute("adminKey") != null){
-                UserDAO.userDataChange(user);
+                UserDaoImpl.userDataChange(user);
                 out.println("修改成功");
                 out.println("(3s后跳转到message页面)");
                 response.setHeader("refresh", "3,url=MessageServlet");
@@ -89,7 +89,7 @@ public class RegisterServlet extends HttpServlet {
             request.getRequestDispatcher("pages/user/register.jsp").forward(request, response);
         }
         else{  // 判断用户名是否存在
-            if(UserDAO.isExistName(name)){
+            if(UserDaoImpl.isExistName(name)){
                 out.println("该用户名已存在");
                 return;
             }
