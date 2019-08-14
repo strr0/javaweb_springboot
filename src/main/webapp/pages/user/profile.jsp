@@ -25,21 +25,7 @@
         </c:if>
     </div>
     <div class="show_item">
-        <div style="float: right; margin-top: 10px;">
-            <c:set var="users" value="${applicationScope.usersKey}"></c:set>
-            <c:if test="${!empty users}">
-                <table>
-                    <tr>
-                        <th>好友列表</th>
-                    </tr>
-                    <c:forEach var="username" items="${users}">
-                        <tr>
-                            <td><a href="ProfileServlet?name=${username.name}">${username.name}</a></td>
-                        </tr>
-                    </c:forEach>
-                </table>
-            </c:if>
-        </div>
+
         <c:set var="user" value="${requestScope.userKey}"></c:set>
         <c:if test="${!empty user}">
             <font size="5">用户信息</font>
