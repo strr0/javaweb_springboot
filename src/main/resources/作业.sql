@@ -114,12 +114,9 @@ where student_id in (select student_id from t_score group by student_id having a
 -- 8.查询没有学全所有课的同学的学号、姓名； --
 select student_id, student_name from t_student
 where student_id not in
-(select a.student_id
-from (select student_id from t_score where course_id = "001") a
-join (select student_id from t_score where course_id = "002") b on a.student_id = b.student_id
-join (select student_id from t_score where course_id = "003") c on a.student_id = c.student_id
-join (select student_id from t_score where course_id = "004") d on a.student_id = d.student_id
-join (select student_id from t_score where course_id = "005") e on a.student_id = e.student_id);
+(select student_id from t_score
+group by student_id
+having count(*) = 5);
 /*
 +------------+--------------+
 | student_id | student_name |
