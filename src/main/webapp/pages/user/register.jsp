@@ -20,7 +20,7 @@
     <form action="RegisterServlet" method="post" id="register_form" onsubmit="return formCheck()">
         <div class="input_item">
             <font size="5" id="admin" onclick="adminChange()">注册用户</font>
-            <input type="hidden" id="adminValue" name="admin" value="no" />
+            <input type="hidden" id="adminValue" name="admin" value="0" />
         </div>
         <div class="input_item">
             <div class="input_field">用户名：</div>
