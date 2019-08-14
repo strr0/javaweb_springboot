@@ -10,23 +10,24 @@ import java.util.List;
 public class UserDaoImpl implements UserDao {
     //驱动名和数据库url
     private static final String JDBC_Driver = "com.mysql.cj.jdbc.Driver";
-    private static String DB_URL = "jdbc:mysql://localhost:3306/sampledb?useSSL=false&serverTimezone=UTC";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/sampledb?useSSL=false&serverTimezone=UTC";
     //用户名和密码
-    private static String NAME = "root";
-    private static String PWD = "password";
+    private static final String NAME = "root";
+    private static final String PWD = "password";
 
-    private static List<User> users;
-    private static List<User> admins;
+    static {
+        try {
+            Class.forName(JDBC_Driver);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     //建立Connection
-    public Connection getConnection(){
+    private Connection getConnection(){
         Connection connection = null;
         try{
-            Class.forName(JDBC_Driver);
             connection = DriverManager.getConnection(DB_URL, NAME, PWD);
-        }
-        catch (ClassNotFoundException c){
-            System.out.println("Class Not Found");
         }
         catch (SQLException e){
             System.out.println("Get connection error");
@@ -35,7 +36,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     //断开Connection
-    public void closeConnection(Connection conn){
+    private void closeConnection(Connection conn){
         if(conn != null){
             try{
                 conn.close();
@@ -50,7 +51,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     //断开statement
-    public void closeStatement(PreparedStatement stmt){
+    private void closeStatement(PreparedStatement stmt){
         if(stmt != null){
             try{
                 stmt.close();
@@ -65,7 +66,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     //写入数据到statement
-    public void data2stmt(PreparedStatement stmt, String name, String sex, int age, String password, String likes, String tag, int admin){
+    private void data2stmt(PreparedStatement stmt, String name, String sex, int age, String password, String likes, String tag, int admin){
         if(stmt != null){
             try{
                 stmt.setString(1, name);
@@ -80,6 +81,26 @@ public class UserDaoImpl implements UserDao {
                 System.out.println("Set data error");
             }
         }
+    }
+
+    //写出数据到User
+    private User result2user(ResultSet set){
+        User user = null;
+        try{
+            int id = set.getInt("id");
+            String name = set.getString("name");
+            String sex = set.getString("sex");
+            int age = set.getInt("age");
+            String password = set.getString("password");
+            String likes = set.getString("likes");
+            String tag = set.getString("tag");
+            int admin = set.getInt("admin");
+            user = new User(id, name, sex, age, password, likes, tag, admin);
+        }
+        catch (SQLException s){
+            System.out.println("result 2 user error");
+        }
+        return user;
     }
 
     //初始化数据库
@@ -108,39 +129,16 @@ public class UserDaoImpl implements UserDao {
             stmt.execute();
             System.out.println("创建成功");
             //插入数据
-            String sql3 = "insert into user(name, sex, age, password, likes, tag, admin) values (?, ?, ?, ?, ?, ?, ?)";
+            String sql3 = "insert into user(name, sex, age, password, likes, tag, admin) " +
+                    "values (?, ?, ?, ?, ?, ?, ?)";
             stmt = conn.prepareStatement(sql3);
-            stmt.setString(1, "中文名字");
-            stmt.setString(2, "男");
-            stmt.setInt(3, 20);
-            stmt.setString(4, "123123");
-            stmt.setString(5, "撩妹, 写代码");
-            stmt.setString(6, "No.1");
-            stmt.setInt(7, 0);
+            data2stmt(stmt, "中文名字", "男", 20, "123123", "撩妹, 写代码", "No.1", 0);
             stmt.addBatch();
-            stmt.setString(1, "不ok");
-            stmt.setString(2, "女");
-            stmt.setInt(3, 21);
-            stmt.setString(4, "123123");
-            stmt.setString(5, "篮球, 足球");
-            stmt.setString(6, "No.2");
-            stmt.setInt(7, 0);
+            data2stmt(stmt, "不ok", "女", 21, "123123", "篮球, 足球", "No.2", 0);
             stmt.addBatch();
-            stmt.setString(1, "EnglishName");
-            stmt.setString(2, "女");
-            stmt.setInt(3, 22);
-            stmt.setString(4, "123123");
-            stmt.setString(5, "写代码");
-            stmt.setString(6, "No.3");
-            stmt.setInt(7, 0);
+            data2stmt(stmt, "EnglishName", "女", 22, "123123", "写代码", "No.3", 0);
             stmt.addBatch();
-            stmt.setString(1, "root");
-            stmt.setString(2, "女");
-            stmt.setInt(3, 21);
-            stmt.setString(4, "password");
-            stmt.setString(5, "写代码");
-            stmt.setString(6, "个性签名");
-            stmt.setInt(7, 1);
+            data2stmt(stmt, "root", "女", 21, "password", "写代码", "个性签名", 1);
             stmt.addBatch();
             stmt.executeBatch();
             stmt.clearBatch();
@@ -221,7 +219,7 @@ public class UserDaoImpl implements UserDao {
     //查询
     public List<User> selectData(){
         //存放查询数据
-        List<User> users = new ArrayList<>();
+        List<User> users = null;
         Connection conn = getConnection();
         PreparedStatement stmt = null;
         try{
@@ -229,18 +227,19 @@ public class UserDaoImpl implements UserDao {
             stmt = conn.prepareStatement(sql);
             ResultSet set = stmt.executeQuery();
             //存放查询数据
-            while (set.next()){
-                if(set.getInt("admin") == 0){
-                    String name = set.getString("name");
-                    String sex = set.getString("sex");
-                    int age = set.getInt("age");
-                    String password = set.getString("password");
-                    String likes = set.getString("likes");
-                    String tag = set.getString("tag");
-                    User user = new User(name, sex, age, password, likes, tag, 0);
-                    users.add(user);
-                }
+            if(!set.next()){
+                //查询结果为空
             }
+            else {
+                users = new ArrayList<>();
+                do{
+                    if(set.getInt("admin") == 0){
+                        User user = result2user(set);
+                        users.add(user);
+                    }
+                }while (set.next());
+            }
+
             set.close();
         }
         catch (SQLException s){
@@ -263,14 +262,16 @@ public class UserDaoImpl implements UserDao {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, name);
             ResultSet set = stmt.executeQuery();
-            set.next();
-            int num = set.getInt(1);
-            if(num == 0){
-                exist = false;
+            if(set.next()){
+                int num = set.getInt(1);
+                if(num == 0){
+                    exist = false;
+                }
+                else {
+                    exist = true;
+                }
             }
-            else {
-                exist = true;
-            }
+            set.close();
         }
         catch (SQLException s){
             System.out.println("exist name error");
@@ -282,97 +283,79 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-
-    //初始化
-    public static void initUserDao(){
-        users = new ArrayList<>();
-        users.add(new User("中文名字", "男", 20, "123123", "撩妹, 写代码", "no.1", 0));
-        users.add(new User("不ok", "女", 22, "123123", "篮球, 足球", "no.2", 0));
-        users.add(new User("EnglishName", "女", 21, "123123", "写代码", "no.3", 0));
-        admins = new ArrayList<>();
-        admins.add(new User("root", "男", 21, "password", "写代码", "个性签名", 1));
-    }
-
-    //获取用户列表
-    public static List<User> getUsers() {
-        return users;
-    }
-    public static List<User> getAdmins() {
-        return admins;
-    }
-
-    //用户添加
-    public static void userAdd(User user){
-        users.add(user);
-    }
-    public static void adminAdd(User admin){
-        admins.add(admin);
-    }
-
-    //用户删除
-    public static List<User> userDelete(String name){
-        for(int i = 0; i < users.size(); i++){
-            User user = users.get(i);
-            if(name.equals(user.getName())){
-                users.remove(i);
-                return users;
+    //账号密码匹配
+    public User matchUser(String name, String password){
+        User user = null;
+        Connection conn = getConnection();
+        PreparedStatement stmt = null;
+        try{
+            String sql = "select * from user where name = ? && password = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, name);
+            stmt.setString(2, password);
+            ResultSet set = stmt.executeQuery();
+            if(set.next()){
+                user = result2user(set);
             }
+            set.close();
         }
-        return users;
-    }
-
-    //判断用户名是否已经存在
-    public static boolean isExistName(String name){
-        List<User> list = new ArrayList<>();
-        list.addAll(users);
-        list.addAll(admins);
-        for(User user : list){
-            if(name.equals(user.getName())){
-                return true;
-            }
+        catch (SQLException s){
+            System.out.println("select error??");
         }
-        return false;
-    }
-
-    //返回用户
-    public static User getUserByName(String name){
-        for(User user : users){
-            if(name.equals(user.getName())){
-                return user;
-            }
-        }
-        return null;
-    }
-
-    //更改用户信息
-    public static void userDataChange(User user){
-        for(int i = 0; i < users.size(); i++){
-            if(users.get(i).getName().equals(user.getName())){
-                users.set(i, user);
-            }
+        finally {
+            closeStatement(stmt);
+            closeConnection(conn);
+            return user;
         }
     }
 
-    //用户账户密码匹配
-    public static User userMatch(String name, String password){
-        if(users != null){
-            for(User user : users){
-                if(name.equals(user.getName()) && password.equals(user.getPassword())){
-                    return user;
-                }
+    //根据id返回用User
+    public User getUserById(int id){
+        User user = null;
+        Connection conn = getConnection();
+        PreparedStatement stmt = null;
+        try{
+            String sql = "select * from user where id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet set = stmt.executeQuery();
+            if (set.next()){
+                user = result2user(set);
             }
+            set.close();
         }
-        return null;
+        catch (SQLException s){
+            System.out.println("get user by id error");
+        }
+        finally {
+            closeStatement(stmt);
+            closeConnection(conn);
+            return user;
+        }
     }
-    //管理员账户密码匹配
-    public static boolean adminMatch(String name, String password){
-        if(admins != null){
-            for(User admin : admins){
-                if(name.equals(admin.getName()) && password.equals(admin.getPassword())){
-                    return true;
-                }
+
+    //根据用户名返回User
+    public User getUserByName(String name){
+        User user = null;
+        Connection conn = getConnection();
+        PreparedStatement stmt = null;
+        try{
+            String sql = "select * from user where name = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, name);
+            ResultSet set = stmt.executeQuery();
+            if (set.next()){
+                user = result2user(set);
             }
+            set.close();
         }
-        return false;
+        catch (SQLException s){
+            System.out.println("get user by name error");
+        }
+        finally {
+            closeStatement(stmt);
+            closeConnection(conn);
+            return user;
+        }
     }
 }
