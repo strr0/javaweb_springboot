@@ -1,7 +1,6 @@
 package com.ucar.training.controller;
 
-import com.ucar.training.dao.MessageDAO;
-import com.ucar.training.entity.Message;
+import com.ucar.training.service.impl.MessageServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,14 +12,11 @@ import java.io.PrintWriter;
 
 @WebServlet("/MessageBoardServlet")
 public class MessageBoardServlet extends HttpServlet {
-    @Override
-    public void init() throws ServletException {
-        MessageDAO.initMessageDao();
-    }
+    private MessageServiceImpl impl = new MessageServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.getServletContext().setAttribute("messageBoardKey", MessageDAO.getMessages());
+        request.setAttribute("messageBoardKey", impl.getMessage());
         request.getRequestDispatcher("pages/messageboard/messageBoard.jsp").forward(request, response);
     }
 
@@ -30,8 +26,7 @@ public class MessageBoardServlet extends HttpServlet {
         String name = (String)request.getSession().getAttribute("nameKey");
         if(name != null){
             String data = request.getParameter("data");
-            Message message = new Message(name, data);
-            MessageDAO.addMessageBoard(message);
+            impl.addMessage(name, data);
             doGet(request, response);
         }
         else{
