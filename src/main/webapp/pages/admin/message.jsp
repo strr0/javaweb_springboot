@@ -18,7 +18,7 @@
     <div style="float: right; margin-right: 10px;">
         <a href="LogoutServlet">注销</a>
     </div>
-    <c:set var="users" value="${applicationScope.usersKey}"></c:set>
+    <c:set var="users" value="${requestScope.usersKey}"></c:set>
     <c:set var="adminName" value="${sessionScope.nameKey}"></c:set>
     <div class="input_item">
         <font size="5"> 欢迎登录, ${adminName}</font>
@@ -46,13 +46,13 @@
                             <div style="overflow: hidden; width: 80px;">
                                 <div style="float: left; width: 40px;">
                                     <form action="UserChangeServlet" method="get" style="margin: 0;">
-                                        <input type="hidden" name="nameChange" value="${user.name}" />
+                                        <input type="hidden" name="idChange" value="${user.id}" />
                                         <input type="submit" class="bt_user_change" value="修改" />
                                     </form>
                                 </div>
                                 <div style="float: left; width: 40px;">
                                     <form action="UserDeleteServlet" method="post" style="margin: 0;">
-                                        <input type="hidden" name="nameDelete" value="${user.name}" />
+                                        <input type="hidden" name="idDelete" value="${user.id}" />
                                         <input type="submit" class="bt_user_delete" value="删除" />
                                     </form>
                                 </div>
