@@ -1,3 +1,9 @@
+### IntelliJ IDEA ###
+.idea
+*.iml
+target
+
+### 其他 ###
 *#
 *.ipr
 *.iws
