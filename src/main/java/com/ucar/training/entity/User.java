@@ -1,6 +1,7 @@
 package com.ucar.training.entity;
 
 public class User {
+    private int id;
     private String name;
     private String sex;
     private int age;
@@ -10,7 +11,8 @@ public class User {
     private int admin;  // 0为普通用户 1为管理员
 
     public User(){}
-    public User(String name, String sex, int age, String password, String like, String tag, int admin){
+    public User(int id, String name, String sex, int age, String password, String like, String tag, int admin){
+        this.id = id;
         this.name = name;
         this.sex = sex;
         this.age = age;
@@ -18,6 +20,13 @@ public class User {
         this.like = like;
         this.tag = tag;
         this.admin = admin;
+    }
+    public User(String name, String sex, int age, String password, String like, String tag, int admin){
+        this(-1, name, sex, age, password, like, tag, admin);
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setName(String name) {
@@ -55,6 +64,10 @@ public class User {
     }
     public String getTag() {
         return tag;
+    }
+
+    public int getAdmin() {
+        return admin;
     }
 }
 
