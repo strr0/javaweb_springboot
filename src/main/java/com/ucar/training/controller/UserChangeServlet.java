@@ -2,6 +2,7 @@ package com.ucar.training.controller;
 
 import com.ucar.training.dao.impl.UserDaoImpl;
 import com.ucar.training.entity.User;
+import com.ucar.training.service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,23 +14,26 @@ import java.io.PrintWriter;
 
 @WebServlet("/UserChangeServlet")
 public class UserChangeServlet extends HttpServlet {
+    private UserServiceImpl impl = new UserServiceImpl();
 
-    @Override
+    /*@Override
     public void init() throws ServletException {
         if(UserDaoImpl.getAdmins() == null){
             UserDaoImpl.initUserDao();
             this.getServletContext().setAttribute("adminsKey", UserDaoImpl.getAdmins());
             this.getServletContext().setAttribute("usersKey", UserDaoImpl.getUsers());
         }
-    }
+    }*/
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
-        String nameChange = request.getParameter("nameChange");
-        if(nameChange != null){
-            User user = UserDaoImpl.getUserByName(nameChange);
+        //request.setCharacterEncoding("UTF-8");
+        //response.setContentType("text/html;charset=UTF-8");
+        String IdChange = request.getParameter("idChange");
+
+        if(IdChange != null){
+            int idChange = Integer.parseInt(IdChange);
+            User user = impl.getUserById(idChange);
             request.setAttribute("userKey", user);
             request.getRequestDispatcher("pages/admin/messageChange.jsp").forward(request, response);
         }
@@ -41,12 +45,15 @@ public class UserChangeServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
+        String Id = request.getParameter("id");
+        int id = Integer.parseInt(Id);
+        User user = impl.getUserById(id);
         String name = request.getParameter("name");
         String sex = request.getParameter("sex");
         String Age = request.getParameter("age");
         String[] likes = request.getParameterValues("like");
         String tag = request.getParameter("tag");
-        User user = UserDaoImpl.getUserByName(name);
+
         if(sex != null){
             user.setSex(sex);
         }
@@ -65,8 +72,9 @@ public class UserChangeServlet extends HttpServlet {
         if(tag != null){
             user.setTag(tag);
         }
-        UserDaoImpl.userDataChange(user);
-        this.getServletContext().setAttribute("usersKey", UserDaoImpl.getUsers());
+
+        impl.updateUser(user);
+
         out.println("修改成功");
         out.println("(3s后回到message界面)");
         response.setHeader("refresh", "3,url=MessageServlet");
