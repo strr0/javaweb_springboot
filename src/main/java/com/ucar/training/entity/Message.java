@@ -4,16 +4,24 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Message {
+    private int mId;
     private String mName;
     private String mData;
-    private String mDate;
+    private String mTime;
 
     public Message(){}
-    public Message(String mName, String mData){
+    public Message(int mId, String mName, String mData, String mTime){
+        this.mId = mId;
         this.mName = mName;
         this.mData = mData;
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        this.mDate = df.format(new Date());
+        this.mTime = mTime;
+    }
+    public Message(String mName, String mData){
+        this(-1, mName, mData, null);
+    }
+
+    public int getmId() {
+        return mId;
     }
 
     public void setmName(String mName) {
@@ -28,7 +36,8 @@ public class Message {
     public String getmData() {
         return mData;
     }
-    public String getmDate() {
-        return mDate;
+
+    public String getmTime() {
+        return mTime;
     }
 }
