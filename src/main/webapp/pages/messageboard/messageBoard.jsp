@@ -27,18 +27,18 @@
     <div class="show_item">
         <div><font size="5">留言板</font></div>
         <div class="blank"></div>
-        <c:set var="messages" value="${applicationScope.messageBoardKey}"></c:set>
+        <c:set var="messages" value="${requestScope.messageBoardKey}"></c:set>
         <c:set var="admin" value="${sessionScope.adminKey}"></c:set>
         <c:if test="${!empty messages}" var="flag">
             <c:forEach var="message" items="${messages}">
                 <div class="board_wrap">
                     <div class="board">
                         <div>${message.mName}: ${message.mData}</div>
-                        <div style="float: right;"><font size="2">${message.mDate}</font></div>
+                        <div style="float: right;"><font size="2">${message.mTime}</font></div>
                     </div>
                     <c:if test="${!empty admin}">
                         <div style="float: left;">
-                            <button class="bt_delete" onclick="location.href='MessageBoardDeleteServlet?id=${message.mDate}'">删除</button>
+                            <button class="bt_delete" onclick="location.href='MessageBoardDeleteServlet?id=${message.mId}'">删除</button>
                         </div>
                     </c:if>
                 </div>
