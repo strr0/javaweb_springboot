@@ -9,4 +9,8 @@ public interface UserDao {
     void deleteData(int id);
     void updateData(int id, String name, String sex, int age, String password, String likes, String tag, int admin);
     List<User> selectData();
+    boolean existName(String name);
+    User matchUser(String name, String password);
+    User getUserById(int id);
+    User getUserByName(String name);
 }
