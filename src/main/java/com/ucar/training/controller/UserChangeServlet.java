@@ -51,7 +51,7 @@ public class UserChangeServlet extends HttpServlet {
         String name = request.getParameter("name");
         String sex = request.getParameter("sex");
         String Age = request.getParameter("age");
-        String[] likes = request.getParameterValues("like");
+        String[] Likes = request.getParameterValues("like");
         String tag = request.getParameter("tag");
 
         if(sex != null){
@@ -61,13 +61,13 @@ public class UserChangeServlet extends HttpServlet {
             int age = Integer.parseInt(Age);
             user.setAge(age);
         }
-        if(likes != null){
-            String like = "";
-            for(int i = 0; i < likes.length; i++){
-                like += likes[i] + ", ";
+        if(Likes != null){
+            String likes = "";
+            for(int i = 0; i < Likes.length; i++){
+                likes += Likes[i] + ", ";
             }
-            like = like.substring(0, like.length()-2);
-            user.setLike(like);
+            likes = likes.substring(0, likes.length()-2);
+            user.setLikes(likes);
         }
         if(tag != null){
             user.setTag(tag);
