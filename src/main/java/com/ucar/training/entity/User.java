@@ -6,23 +6,23 @@ public class User {
     private String sex;
     private int age;
     private String password;
-    private String like;
+    private String likes;
     private String tag;
     private int admin;  // 0为普通用户 1为管理员
 
     public User(){}
-    public User(int id, String name, String sex, int age, String password, String like, String tag, int admin){
+    public User(int id, String name, String sex, int age, String password, String likes, String tag, int admin){
         this.id = id;
         this.name = name;
         this.sex = sex;
         this.age = age;
         this.password = password;
-        this.like = like;
+        this.likes = likes;
         this.tag = tag;
         this.admin = admin;
     }
-    public User(String name, String sex, int age, String password, String like, String tag, int admin){
-        this(-1, name, sex, age, password, like, tag, admin);
+    public User(String name, String sex, int age, String password, String likes, String tag, int admin){
+        this(-1, name, sex, age, password, likes, tag, admin);
     }
 
     public int getId() {
@@ -53,11 +53,11 @@ public class User {
     public String getPassword() {
         return password;
     }
-    public void setLike(String like) {
-        this.like = like;
+    public void setLikes(String likes) {
+        this.likes = likes;
     }
-    public String getLike() {
-        return like;
+    public String getLikes() {
+        return likes;
     }
     public void setTag(String tag) {
         this.tag = tag;
