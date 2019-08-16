@@ -1,6 +1,8 @@
 package com.ucar.training;
 
-import com.ucar.training.Utils.SqlSessionFactoryUtils;
+import com.ucar.training.entity.User;
+import com.ucar.training.mapper.UserMapper;
+import com.ucar.training.utils.SqlSessionFactoryUtils;
 import com.ucar.training.entity.Message;
 import com.ucar.training.mapper.MessageMapper;
 import org.apache.ibatis.io.Resources;
@@ -91,6 +93,16 @@ public class MybatisTest {
         }
     }
 
+    @Test
+    public void getUsersTest(){
+        SqlSession session = utils.getSession();
+        UserMapper mapper = session.getMapper(UserMapper.class);
+        User user = mapper.getUserById(10);
+        session.close();
+        if(user != null){
+            System.out.println(user.getLikes());
+        }
+    }
     @Test
     public void getMessagesTest(){
         SqlSession session = utils.getSession();
