@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ucar.training.mapper.MessageMapper">
+    <!-- 插入留言 -->
+    <insert id="addMessage" parameterType="Message">
+        insert into message(m_name, m_data, m_time)
+        values(#{mName}, #{mData}, now())
+    </insert>
+    <!-- 删除留言 -->
+    <delete id="deleteMessage" parameterType="int">
+        delete from message where id = #{id}
+    </delete>
+    <!-- 获取留言信息 -->
+    <select id="getMessages" resultType="Message">
+        select id as mId, m_name as mName, m_data as mData, m_time as mTime from message
+    </select>
+</mapper>
