@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 从mybatis.properties加载属性配置 -->
+    <properties resource="mybatis.properties" />
+
+    <!-- 简化 -->
+    <typeAliases>
+        <package name="com.ucar.training.entity"/>
+    </typeAliases>
+
+    <!-- 配置数据库 -->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 映射器 -->
+    <mappers>
+        <mapper resource="mapper/UserMapper.xml" />
+        <mapper resource="mapper/MessageMapper.xml" />
+    </mappers>
+</configuration>
