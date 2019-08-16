@@ -1,6 +1,6 @@
 package com.ucar.training.dao.impl;
 
-import com.ucar.training.Utils.SqlSessionFactoryUtils;
+import com.ucar.training.utils.SqlSessionFactoryUtils;
 import com.ucar.training.dao.UserDao;
 import com.ucar.training.entity.User;
 import com.ucar.training.mapper.UserMapper;
