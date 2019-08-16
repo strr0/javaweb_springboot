@@ -21,7 +21,7 @@
     <c:set var="users" value="${requestScope.usersKey}"></c:set>
     <c:set var="adminName" value="${sessionScope.nameKey}"></c:set>
     <div class="input_item">
-        <font size="5"> 欢迎登录, ${adminName}</font>
+        <font size="5"> 欢迎登录, ${adminName} </font>
     </div>
     <div class="show_item">
         <c:if test="${!empty users}" var="flag">
