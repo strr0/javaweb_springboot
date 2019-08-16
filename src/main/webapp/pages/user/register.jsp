@@ -19,7 +19,8 @@
     <div style="float: right; margin-right: 10px;"><a href="index.jsp">返回</a></div>
     <form action="RegisterServlet" method="post" id="register_form" onsubmit="return formCheck()">
         <div class="input_item">
-            <font size="5" id="admin" onclick="adminChange()">注册用户</font>
+            <font size="5" id="admin">注册用户</font>
+            <button onclick="adminChange()">切换</button>
             <input type="hidden" id="adminValue" name="admin" value="0" />
         </div>
         <div class="input_item">
