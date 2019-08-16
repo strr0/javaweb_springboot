@@ -9,7 +9,6 @@ public interface UserService {
     void deleteUser(int id);
     List<User> getUsers();
     User matchUser(String name, String password);
-    boolean isExistName(String name);
     User getUserByName(String name);
     User getUserById(int id);
     void updateUser(User user);
