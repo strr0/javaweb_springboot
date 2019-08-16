@@ -46,7 +46,7 @@
                     </tr>
                     <tr>
                         <th>爱好: </th>
-                        <td>${user.like}</td>
+                        <td>${user.likes}</td>
                     </tr>
                     <tr>
                         <th>个人签名: </th>
