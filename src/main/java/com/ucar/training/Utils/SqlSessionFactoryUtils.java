@@ -1,23 +1,27 @@
-package com.ucar.training.Utils;
+package com.ucar.training.utils;
 
-import org.apache.ibatis.io.Resources;
+import com.ucar.training.mapper.MessageMapper;
+import com.ucar.training.mapper.UserMapper;
+import org.apache.ibatis.mapping.Environment;
+import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.apache.ibatis.transaction.TransactionFactory;
+import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 
-import java.io.Reader;
+import javax.sql.DataSource;
 
 public class SqlSessionFactoryUtils {
-    private static Reader reader;
     private static SqlSessionFactory sqlSessionFactory;
     static {
-        try{
-            reader = Resources.getResourceAsReader("mybatis-config.xml");
-            sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
-        }
-        catch (Exception e){
-            System.out.println("error");
-        }
+        DataSource dataSource = DataSourceConfig.getDataSource();
+        TransactionFactory transactionFactory = new JdbcTransactionFactory();
+        Environment environment = new Environment("development", transactionFactory, dataSource);
+        Configuration configuration = new Configuration(environment);
+        configuration.addMapper(UserMapper.class);
+        configuration.addMapper(MessageMapper.class);
+        sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
     }
 
     public SqlSession getSession(){
