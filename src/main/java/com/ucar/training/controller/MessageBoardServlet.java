@@ -16,7 +16,7 @@ public class MessageBoardServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("messageBoardKey", impl.getMessage());
+        request.setAttribute("messageBoardKey", impl.getMessages());
         request.getRequestDispatcher("pages/messageboard/messageBoard.jsp").forward(request, response);
     }
 
