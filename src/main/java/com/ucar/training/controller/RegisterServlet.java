@@ -42,7 +42,7 @@ public class RegisterServlet extends HttpServlet {
 
         //保存用户信息
         //User user = new User(name, sex, age, password, likes, tag, admin);
-        if(!impl.isExistName(name)){  //用户名不存在
+        if(impl.getUserByName(name) == null){  //用户名不存在
             //
             impl.addUser(name, sex, age, password, likes, tag, admin);
         }
