@@ -41,7 +41,7 @@
                         <td><c:out value="${user.name}"></c:out></td>
                         <td><c:out value="${user.sex}"></c:out></td>
                         <td><c:out value="${user.age}"></c:out></td>
-                        <td><c:out value="${user.like}"></c:out></td>
+                        <td><c:out value="${user.likes}"></c:out></td>
                         <td>
                             <div style="overflow: hidden; width: 80px;">
                                 <div style="float: left; width: 40px;">
