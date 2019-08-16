@@ -11,7 +11,8 @@ public class UserServiceImpl implements UserService {
 
     //添加
     public void addUser(String name, String sex, int age, String password, String likes, String tag, int admin){
-        impl.insertData(name, sex, age, password, likes, tag, admin);
+        User user = new User(name, sex, age, password, likes, tag, admin);
+        impl.insertData(user);
     }
 
     //删除
@@ -29,11 +30,6 @@ public class UserServiceImpl implements UserService {
         return impl.matchUser(name, password);
     }
 
-    //判断是否存在用户名
-    public boolean isExistName(String name){
-        return impl.existName(name);
-    }
-
     //根据用户名返回User  用于从session中获取用户名 即登录用户 返回用户信息
     public User getUserByName(String name){
         return impl.getUserByName(name);
@@ -46,15 +42,7 @@ public class UserServiceImpl implements UserService {
 
     //修改用户信息
     public void updateUser(User user){
-        int id = user.getId();
-        String name = user.getName();
-        String sex = user.getSex();
-        int age = user.getAge();
-        String password = user.getPassword();
-        String likes = user.getLike();
-        String tag = user.getTag();
-        int admin = user.getAdmin();
-        impl.updateData(id, name, sex, age, password, likes, tag, admin);
+        impl.updateData(user);
     }
 
 }
