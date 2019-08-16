@@ -1,4 +1,4 @@
-package com.ucar.training.controller;
+package com.ucar.training.filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
