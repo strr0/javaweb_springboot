@@ -5,11 +5,10 @@ import com.ucar.training.entity.User;
 import java.util.List;
 
 public interface UserDao {
-    void insertData(String name, String sex, int age, String password, String likes, String tag, int admin);
+    void insertData(User user);
     void deleteData(int id);
-    void updateData(int id, String name, String sex, int age, String password, String likes, String tag, int admin);
+    void updateData(User user);
     List<User> selectData();
-    boolean existName(String name);
     User matchUser(String name, String password);
     User getUserById(int id);
     User getUserByName(String name);
