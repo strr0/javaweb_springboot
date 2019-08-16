@@ -19,7 +19,7 @@ public class AjaxServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         String name = request.getParameter("name");
         if(name != null){
-            if(impl.isExistName(name)){
+            if(impl.getUserByName(name) != null){
                 out.println("该用户名已存在");
                 return;
             }
