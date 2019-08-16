@@ -15,15 +15,6 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     private UserServiceImpl impl = new UserServiceImpl();
 
-    /*@Override
-    public void init() throws ServletException {
-        if(UserDaoImpl.getAdmins() == null){
-            UserDaoImpl.initUserDao();
-            this.getServletContext().setAttribute("adminsKey", UserDaoImpl.getAdmins());
-            this.getServletContext().setAttribute("usersKey", UserDaoImpl.getUsers());
-        }
-    }*/
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //PrintWriter out = response.getWriter();
