@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div class="blank"></div>
+<div style="float: right; margin-right: 10px;"><a href="main">返回</a></div>
+<form id="change_form" th:object="${permission}">
+    <div class="input_item">
+        <font size="5">修改权限</font>
+    </div>
+    <input type="hidden" name="id" th:field="*{id}" />
+    <div class="input_item">
+        <div class="input_field">权限名：</div>
+        <div class="input_field">
+            <input type="text" id="name" name="name" onblur="" th:field="*{name}" readonly />
+        </div>
+        <div class="input_error" id="name_error"></div>
+    </div>
+    <div class="input_item">
+        <div class="input_field">权限描述：</div>
+        <div class="input_field">
+            <input type="text" id="description" name="description" onblur="" th:field="*{description}" />
+        </div>
+        <div class="input_error" id="description_error"></div>
+    </div>
+    <div class="input_item">
+        <div class="input_field">url地址：</div>
+        <div class="input_field">
+            <input type="text" id="url" name="url" onblur="" th:field="*{url}" />
+        </div>
+        <div class="input_error" id="url_error"></div>
+    </div>
+    <div class="input_item">
+        <div class="input_field">
+            <input type="button" class="bt1" value="注册" onclick="permissionChange()" />
+        </div>
+        <div class="input_field">
+            <input type="reset" class="bt1" onclick="" value="取消" />
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

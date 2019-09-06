@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div class="blank"></div>
+<div class="show_item">
+    <font size="5">用户信息</font>
+    <div th:unless="${user == null}" class="show_profile">
+        <div class="blank"></div>
+        <div>
+            <img th:src="@{/img/{filename}(filename=${user.username} + '.png')}" style="width: 50px;">
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <td>用户名: </td>
+                    <td><span th:text="${user.username}"></span></td>
+                </tr>
+                <tr>
+                    <td>性别: </td>
+                    <td><span th:text="${user.sex}"></span></td>
+                </tr>
+                <tr>
+                    <td>年龄: </td>
+                    <td><span th:text="${user.age}"></span></td>
+                </tr>
+                <tr>
+                    <td>爱好: </td>
+                    <td><span th:text="${user.likes}"></span></td>
+                </tr>
+                <tr>
+                    <td>个人签名: </td>
+                    <td><span th:text="${user.signature}"></span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

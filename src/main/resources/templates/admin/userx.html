@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="blank"></div>
+<div class="home_bt"><a href="main">返回</a></div>
+<form id="change_form" th:object="${user}" onsubmit="">
+    <div class="input_item">
+        <font size="5">修改信息</font>
+    </div>
+    <div th:if="${user != null}">
+        <input type="hidden" name="id" th:field="*{id}" />
+        <div class="input_item">
+            <div class="input_field">用户名: </div>
+            <div class="input_field">
+                <input type="text" name="username" th:field="*{username}" readonly />
+            </div>
+        </div>
+        <div class="input_item">
+            <div class="input_field">性别: </div>
+            <div class="input_field">
+                <input type="radio" name="sex" value="男" th:attr="checked=${user.sex eq '男' ? true : false}">男</input>
+                <input type="radio" name="sex" value="女" th:attr ="checked=${user.sex eq '女' ? true : false}">女</input>
+            </div>
+        </div>
+        <div class="input_item">
+            <div class="input_field">年龄: </div>
+            <div class="input_field">
+                <input type="text" name="age" id="age" onblur="" th:field="*{age}" />
+            </div>
+            <div class="input_error" id="age_error"></div>
+        </div>
+        <div class="input_item">
+            <div class="input_field">密码：</div>
+            <div class="input_field"><input type="password" id="pwd" name="password" onblur="" th:value="${user.password}" /></div>
+            <div class="input_error" id="password_error"></div>
+        </div>
+        <div class="input_item">
+            <div class="input_field">确认密码：</div>
+            <div class="input_field"><input type="password" id="confirm_pwd" name="confirmpwd" onblur="" th:value="${user.password}" /></div>
+            <div class="input_error" id="confirm_pwd_error"></div>
+        </div>
+        <div class="input_item">
+            <div class="input_field">爱好：</div>
+            <div class="input_field">
+                <input type="checkbox" name="likes" value="撩妹" onblur="" th:attr ="checked=${user.likes.contains('撩妹') ? true : false}">撩妹</input>
+                <input type="checkbox" name="likes" value="写代码" onblur="" th:attr ="checked=${user.likes.contains('写代码') ? true : false}"}>写代码</input>
+                <input type="checkbox" name="likes" value="篮球" onblur="" th:attr ="checked=${user.likes.contains('篮球') ? true : false}"}>篮球</input>
+                <input type="checkbox" name="likes" value="足球" onblur="" th:attr ="checked=${user.likes.contains('足球') ? true : false}"}>足球</input>
+            </div>
+            <div class="input_error" id="like_error"></div>
+        </div>
+        <div class="input_item">
+            <div class="input_field">个性签名：</div>
+            <div class="input_field"><textarea form="change_form" id="signature" name="signature" onblur="" th:text="${user.signature}"></textarea></div>
+            <div class="input_error" id="tag_error"></div>
+        </div>
+        <div class="input_item">
+            <div class="input_field">用户类型：</div>
+            <div class="input_field" th:unless="${#lists.isEmpty(roleList)}">
+                <select form="change_form" name="role">
+                    <option th:each="role:${roleList}" th:value="${role.name}" th:text="${role.description}"></option>
+                </select>
+            </div>
+            <div class="input_error"></div>
+        </div>
+        <div class="input_item">
+            <div class="input_field">
+                <input type="button" value="确认" onclick="userChange()" />
+            </div>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

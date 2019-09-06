@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<!--
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="main_wrap">
+    <div th:unless="${#lists.isEmpty(permissionList)}" class="main_label" id="label">
+        <ul>
+            <li th:each="permission:${permissionList}">
+                <button th:value="${permission.url}"
+                    th:text="${permission.description}"
+                    onclick="getData(this.value)"></button>
+            </li>
+        </ul>
+    </div>
+    <div th:if="${#lists.isEmpty(permissionList)}" class="main_label" id="label">
+        <ul>
+            <li><button onclick="getData('login')">登录</button></li>
+            <li><button onclick="getData('register')">注册</button></li>
+        </ul>
+    </div>
+    <div class="main_top">
+        <div style="float: right; margin-right: 10px">
+            <div th:if="${session.nameKey != null}">
+                <img th:src="@{/img/{filename}(filename=${session.nameKey} + '.png')}" style="width: 25px;">
+                <a href="logout">注销</a>
+            </div>
+            <span th:if="${session.nameKey == null}">未登录</span>
+        </div>
+    </div>
+    <div class="main_box" id="demo"></div>
+</div>
+<script type="text/javascript" th:src="@{/js/jquery-3.4.1.js}"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+</body>
+</html>-->
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home</title>
+
+    <!-- Styles -->
+    <link th:href="@{/css/lib/themify-icons.css}" rel="stylesheet">
+    <link th:href="@{/css/lib/mmc-chat.css}" rel="stylesheet">
+    <link th:href="@{/css/lib/sidebar.css}" rel="stylesheet">
+    <link th:href="@{/css/lib/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/lib/nixon.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <style class="datamaps-style-block">
+        .datamap path.datamaps-graticule {
+            fill: none; stroke: #777;
+            stroke-width: 0.5px;
+            stroke-opacity: .5;
+            pointer-events: none;
+        }
+        .datamap .labels {
+            pointer-events: none;
+        }
+        .datamap path:not(.datamaps-arc), .datamap circle, .datamap line {
+            stroke: #FFFFFF;
+            vector-effect: non-scaling-stroke;
+            stroke-width: 1px;
+        }
+        .datamaps-legend dt, .datamaps-legend dd {
+            float: left;
+            margin: 0 3px 0 0;
+        }
+        .datamaps-legend dd {
+            width: 20px;
+            margin-right: 6px;
+            border-radius: 3px;
+        }
+        .datamaps-legend {
+            padding-bottom: 20px;
+            z-index: 1001;
+            position: absolute;
+            left: 4px;
+            font-size: 12px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        .datamaps-hoverover {
+            display: none;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        .hoverinfo {
+            padding: 4px;
+            border-radius: 1px;
+            background-color: #FFF;
+            box-shadow: 1px 1px 5px #CCC;
+            font-size: 12px;
+            border: 1px solid #CCC;
+        }
+        .hoverinfo hr {
+            border:1px dotted #CCC;
+        }
+    </style>
+</head>
+
+<body>
+<div class="sidebar sidebar-shrink">
+    <div class="nano has-scrollbar">
+        <div class="nano-content" style="right: -12px;">
+            <ul>
+                <li class="active"><a class="sidebar-sub-toggle"><i class="ti-home"></i> Home </a></li>
+
+                <li th:each="permission:${permissionList}">
+                    <a th:onclick="getData([[${permission.url}]])">
+                        <i th:class="${permission.icon}"></i>
+                        <span th:text="${permission.description}"></span>
+                    </a>
+                </li>
+
+                <li><a th:href="@{/logout}"><i class="ti-close"></i> Logout</a></li>
+            </ul>
+        </div>
+        <div class="nano-pane" style="display: none;">
+            <div class="nano-slider" style="height: 3452px; transform: translate(0px, 0px);"></div>
+        </div>
+    </div>
+</div>
+<!-- /# sidebar -->
+<div class="header">
+    <div class="pull-left">
+        <div class="logo">
+            <a href="">
+                <img id="logoImg" th:src="@{/img/logo/logo.png}" alt="Nixon" >
+            </a>
+        </div>
+        <div class="hamburger sidebar-toggle is-active">
+            <span class="ti-menu"></span>
+        </div>
+    </div>
+    <div class="pull-right p-r-15">
+        <ul>
+            <li class="header-icon dib"><i class="ti-bell"></i><div class="note-count">2</div></li>
+            <li class="header-icon dib"><i class="ti-email"></i><div class="note-count">21</div></li>
+            <li class="header-icon dib chat-sidebar-icon"><i class="ti-comments"></i></li>
+            <li class="header-icon dib">
+                <img class="avatar-img" th:src="@{/img/{filename}(filename=${user.username} + '.png')}" alt="">
+                <span class="user-avatar" th:text="${user.username}">Username<i class="ti-angle-down f-s-10"></i></span>
+                <!--<div class="drop-down dropdown-profile">
+                    <div class="dropdown-content-heading">
+                        <span class="text-left">Upgrade Now</span>
+                        <p class="trial-day">30 Days Trail</p>
+                    </div>
+                    <div class="dropdown-content-body">
+                        <ul>
+                            <li><a href="#"><i class="ti-user"></i> <span>Profile</span></a></li>
+                            <li><a href="#"><i class="ti-wallet"></i> <span>My Balance</span></a></li>
+                            <li><a href="#"><i class="ti-write"></i> <span>My Task</span></a></li>
+                            <li><a href="#"><i class="ti-calendar"></i> <span>My Calender</span></a></li>
+                            <li><a href="#"><i class="ti-email"></i> <span>Inbox</span></a></li>
+                            <li><a href="#"><i class="ti-settings"></i> <span>Setting</span></a></li>
+                            <li><a href="#"><i class="ti-help-alt"></i> <span>Help</span></a></li>
+                            <li><a href="#"><i class="ti-lock"></i> <span>Lock Screen</span></a></li>
+                            <li><a href="#"><i class="ti-power-off"></i> <span>Logout</span></a></li>
+                        </ul>
+                    </div>
+                </div>-->
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="chat-sidebar">
+    <!-- BEGIN chat -->
+    <div id="mmc-chat" class="color-default">
+        <!-- BEGIN CHAT BOX -->
+        <div class="chat-box">
+            <!-- BEGIN CHAT BOXS -->
+            <ul class="boxs"></ul>
+            <!-- END CHAT BOXS -->
+            <div class="icons-set">
+                <div class="stickers">
+                    <div class="had-container">
+                        <div class="row">
+                            <div class="s12">
+                                <ul class="tabs" style="width: 100%;height: 60px;">
+                                    <li class="tab col s3">
+                                        <a href="#tab1" class="active">
+                                            <img src="assets/images/1.png" alt="">
+                                        </a>
+                                    </li>
+                                    <li class="tab col s3"><a href="#tab2">Test 2</a></li>
+                                </ul>
+                            </div>
+                            <div id="tab1" class="s12 tab-content">
+                                <ul>
+                                    <li><img src="assets/images/1.png" alt=""></li>
+                                    <li><img src="assets/images/1.png" alt=""></li>
+                                    <li><img src="assets/images/1.png" alt=""></li>
+                                    <li><img src="assets/images/1.png" alt=""></li>
+                                    <li><img src="assets/images/1.png" alt=""></li>
+                                    <li><img src="assets/images/1.png" alt=""></li>
+                                    <li><img src="assets/images/1.png" alt=""></li>
+                                    <li><img src="assets/images/1.png" alt=""></li>
+                                    <li><img src="assets/images/1.png" alt=""></li>
+                                    <li><img src="assets/images/1.png" alt=""></li>
+                                    <li><img src="assets/images/1.png" alt=""></li>
+                                    <li><img src="assets/images/1.png" alt=""></li>
+                                    <li><img src="assets/images/1.png" alt=""></li>
+                                </ul>
+                            </div>
+                            <div id="tab2" class="s12 tab-content">Test 2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END CHAT BOX -->
+        <!-- BEGIN SIDEBAR -->
+        <div id="sidebar" class="right scroll">
+            <div class="had-container">
+                <!-- BEGIN USERS -->
+                <div class="users">
+                    <ul class="user-list">
+                        <!-- BEGIN USER-->
+                        <li class="user-tooltip" data-id="1" data-status="online" data-username="Rufat Askerov" data-position="left" data-filter-item="" data-filter-name="rufat askerov">
+                            <!-- BEGIN USER IMAGE-->
+                            <div class="user-image">
+                                <img src="assets/images/avatar/1.jpg" class="avatar" alt="Rufat Askerov">
+                            </div>
+                            <!-- END USER IMAGE-->
+                            <!-- BEGIN USERNAME-->
+                            <span class="user-name">Rufat Askerov</span>
+                            <span class="user-show"></span>
+                            <!-- END USERNAME-->
+                        </li>
+                        <!-- END USER-->
+                        <!-- BEGIN USER-->
+                        <li class="user-tooltip" data-id="3" data-status="online" data-username="Alice" data-position="left" data-filter-item="" data-filter-name="alice">
+                            <div class="user-image">
+                                <img src="assets/images/avatar/1.jpg" class="avatar" alt="Alice">
+                            </div>
+                            <span class="user-name">Alice</span>
+                            <span class="user-show"></span>
+                        </li>
+                        <!-- BEGIN USER-->
+                        <li class="user-tooltip" data-id="7" data-status="offline" data-username="Michael Scofield" data-position="left" data-filter-item="" data-filter-name="michael scofield">
+                            <div class="user-image">
+                                <img src="assets/images/avatar/1.jpg" class="avatar" alt="Michael Scofield">
+                            </div>
+                            <span class="user-name">Michael Scofield</span>
+                            <span class="user-show"></span>
+                        </li>
+                        <!-- BEGIN USER-->
+                        <li class="user-tooltip" data-id="5" data-status="online" data-username="Irina Shayk" data-position="left" data-filter-item="" data-filter-name="irina shayk">
+                            <div class="user-image">
+                                <img src="assets/images/avatar/1.jpg" class="avatar" alt="Irina Shayk">
+                            </div>
+                            <span class="user-name">Irina Shayk</span>
+                            <span class="user-show"></span>
+                        </li>
+                        <!-- BEGIN USER-->
+                        <li class="user-tooltip" data-id="6" data-status="offline" data-username="Sara Tancredi" data-position="left" data-filter-item="" data-filter-name="sara tancredi">
+                            <div class="user-image">
+                                <img src="assets/images/avatar/1.jpg" class="avatar" alt="Sara Tancredi">
+                            </div>
+                            <span class="user-name">Sara Tancredi</span>
+                            <span class="user-show"></span>
+                        </li>
+                        <!-- BEGIN USER-->
+                        <li class="user-tooltip" data-id="7" data-status="offline" data-username="Jane" data-position="left" data-filter-item="" data-filter-name="Jane">
+                            <div class="user-image">
+                                <img src="assets/images/avatar/1.jpg" class="avatar" alt="Jane">
+                            </div>
+                            <span class="user-name">Jane</span>
+                            <span class="user-show"></span>
+                        </li>
+                    </ul>
+                    <div class="chat-user-search">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="ti-search"></i></span>
+                            <input type="text" class="form-control" placeholder="Search" data-search="">
+                        </div>
+                    </div>
+                </div>
+                <!-- END USERS -->
+            </div>
+        </div>
+        <!-- END SIDEBAR -->
+    </div>
+    <!-- END chat -->
+</div>
+<!-- END chat Sidebar-->
+<div class="content-wrap">
+    <div class="main" id="demo"></div>
+    <!-- /# main -->
+</div>
+<!-- /# content wrap -->
+
+
+<script type="text/javascript" th:src="@{/js/lib/jquery-3.4.1.js}"></script>
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+
+</body>
+</html>

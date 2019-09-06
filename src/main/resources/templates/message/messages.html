@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div class="blank"></div>
+<div class="show_item">
+    <div><font size="5">留言板</font></div>
+    <div class="blank"></div>
+    <div th:unless="${#lists.isEmpty(messageList)}">
+        <div th:each="message:${messageList}" class="board_wrap">
+            <div class="board">
+                <div th:text="${message.name} + ':' + ${message.data}"></div>
+                <div th:text="${message.time}" style="float: right; font-size: 2px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${#lists.isEmpty(messageList)}">
+        暂无留言信息
+    </div>
+    <div class="blank"></div>
+    <div>
+        <form>
+            <textarea id="message_data"></textarea>
+            <input type="button" value="提交" onclick="messageAdd()" />
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

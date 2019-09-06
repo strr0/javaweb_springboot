@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div class="blank"></div>
+<div class="show_item">
+    <div th:unless="${#lists.isEmpty(permissionList)}">
+        权限列表
+        <table border="1">
+            <tr>
+                <th style="width: 100px;">权限名</th>
+                <th style="width: 100px;">描述</th>
+                <th style="width: 100px;">url</th>
+                <th style="width: 80px;">
+                    <button class="bt_user_add" onclick="toPermissionAdd()">添加权限</button>
+                </th>
+            </tr>
+            <tr th:each="permission:${permissionList}">
+                <td th:text="${permission.name}"></td>
+                <td th:text="${permission.description}"></td>
+                <td th:text="${permission.url}"></td>
+                <td>
+                    <div style="overflow: hidden; width: 80px;">
+                        <div style="float: left; width: 40px;">
+                            <button class="bt_user_change" th:value="${permission.id}" onclick="toPermissionChange(this.value)">修改</button>
+                        </div>
+                        <div style="float: left; width: 40px;">
+                            <button class="bt_user_delete" th:value="${permission.id}" onclick="permissionDelete(this.value)">删除</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

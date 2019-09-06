@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div class="blank"></div>
+<div class="show_item">
+    <div th:unless="${#lists.isEmpty(userList)}">
+        用户列表
+        <table border="1">
+            <tr>
+                <th style="width: 100px;">用户名</th>
+                <th style="width: 100px;">性别</th>
+                <th style="width: 100px;">年龄</th>
+                <th style="width: 120px;">爱好</th>
+                <th style="width: 80px;">
+                    <button class="bt_user_add" onclick="getData('register')">添加用户</button>
+                </th>
+            </tr>
+            <tr th:each="user:${userList}">
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.sex}"></td>
+                <td th:text="${user.age}"></td>
+                <td th:text="${user.likes}"></td>
+                <td>
+                    <div style="overflow: hidden; width: 80px;">
+                        <div style="float: left; width: 40px;">
+                            <button class="bt_user_change" th:value="${user.id}" onclick="toUserChange(this.value)">修改</button>
+                        </div>
+                        <div style="float: left; width: 40px;">
+                            <button class="bt_user_delete" th:value="${user.id}" onclick="userDelete(this.value)">删除</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div th:if="${#lists.isEmpty(userList)}">
+        暂无用户注册
+    </div>
+</div>
+</body>
+</html>

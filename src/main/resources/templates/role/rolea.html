@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div class="blank"></div>
+<div style="float: right; margin-right: 10px;"><a href="main">返回</a></div>
+<form id="role_form">
+    <div class="input_item">
+        <font size="5">创建角色</font>
+    </div>
+    <div class="input_item">
+        <div class="input_field">角色名：</div>
+        <div class="input_field"><input type="text" id="name" name="name" onblur="" placeholder="请输入角色名" autocomplete="off" /></div>
+        <div class="input_error" id="name_error"></div>
+    </div>
+    <div class="input_item">
+        <div class="input_field">角色描述：</div>
+        <div class="input_field"><input type="text" id="description" name="description" onblur="" placeholder="请输入角色描述" autocomplete="off" /></div>
+        <div class="input_error" id="description_error"></div>
+    </div>
+    <div class="input_item">
+        <div class="input_field">角色权限：</div>
+        <div class="input_field">
+            <div th:each="permission:${permissionList}">
+                <span th:text="${permission.description}"></span>
+                <input type="checkbox" name="permissions" th:value="${permission.name}" />
+            </div>
+        </div>
+        <div class="input_error" id="permission_error"></div>
+    </div>
+    <div class="input_item">
+        <div class="input_field">
+            <input type="button" class="bt1" value="注册" onclick="roleAdd()" />
+        </div>
+        <div class="input_field">
+            <input type="reset" class="bt1" onclick="" value="取消" />
+        </div>
+    </div>
+</form>
+</body>
+</html>
